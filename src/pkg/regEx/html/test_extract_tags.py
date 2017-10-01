@@ -20,6 +20,12 @@ class TestGetFromTag(unittest.TestCase):
         expected_text = 'This is a test'
         self.assertEqual(actual_text, expected_text)
 
+    def test_when_sent_html_code_ignore_case(self):
+        """Returns the code inside of the tag <dIV...>...</dIV>"""
+        actual_text = get_from_tag('div', '<dIV name="test">This is a test</dIV>')
+        expected_text = 'This is a test'
+        self.assertEqual(actual_text, expected_text)
+
     def test_when_the_html_code_not_contain_the_tag(self):
         """Returns None"""
         actual_text = get_from_tag('div', '<span name="test">This is a test</span>')
