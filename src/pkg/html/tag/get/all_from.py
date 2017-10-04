@@ -11,7 +11,7 @@ def all_from(tag=None, text="", ignore_case=True, get_only_content_inside=False)
     return __search_html_tags(tag, text, ignore_case, get_only_content_inside)
 
 
-def __search_html_tags(tag=None, text="", ignore_case=True, get_only_content_inside=False):
+def __search_html_tags(tag=None, text="", ignore_case=True, get_content_inside=False):
     if tag is None:
         return
 
@@ -40,7 +40,7 @@ def __search_html_tags(tag=None, text="", ignore_case=True, get_only_content_ins
 
     for _, tag in tag_matrix:
         if tags_opened == 0 and is_a_new_tag:
-            if get_only_content_inside:
+            if get_content_inside:
                 text_star_at = tag.get('end_at')
             else:
                 text_star_at = tag.get('start_at')
@@ -49,7 +49,7 @@ def __search_html_tags(tag=None, text="", ignore_case=True, get_only_content_ins
         tags_opened += tag.get('value')
 
         if tags_opened == 0:
-            if get_only_content_inside:
+            if get_content_inside:
                 tags_found.append(text[text_star_at: tag.get('start_at')].rstrip())
             else:
                 tags_found.append(text[text_star_at: tag.get('end_at')])
