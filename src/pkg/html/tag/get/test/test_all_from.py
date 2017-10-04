@@ -13,11 +13,13 @@ class TestGetFromTag(unittest.TestCase):
         """Returns the code inside of the tag <dIV...>...</dIV>"""
         actual_text = all_from('div', '<dIV name="test">This is a test</dIV>')[0]
         expected_text = '<dIV name="test">This is a test</dIV>'
+
         self.assertEqual(actual_text, expected_text)
 
     def test_when_sent_html_code_without_ignore_case(self):
         """Returns None"""
         actual_text = all_from('div', '<dIV name="test">This is a test</dIV>', False)
+
         self.assertEqual(0, len(actual_text))
 
     def test_when_text_has_break_lines_and_should_be_return_two_results(self):
@@ -36,20 +38,6 @@ class TestGetFromTag(unittest.TestCase):
 
         result = all_from('div', text, True, True)
 
-        print("len(result): ", len(result))
-        print("#1:")
-        print("--------------------------------------------------------------------------------------------------")
-        print(result[0])
-        print("--------------------------------------------------------------------------------------------------")
-        print(expected_text_1)
-        print("--------------------------------------------------------------------------------------------------")
-        print("#2:")
-        print("-------------------------------------------------")
-        print(result[1])
-        print("-------------------------------------------------")
-        print(expected_text_2)
-        print("-------------------------------------------------")
-
         self.assertEqual(2, len(result))
         self.assertEqual(result[0], expected_text_1)
         self.assertEqual(result[1], expected_text_2)
@@ -65,16 +53,16 @@ class TestGetFromTag(unittest.TestCase):
         self.assertEqual(result[1], expected_text_2)
         self.assertEqual(result[2], expected_text_3)
 
-        # def test_when_text_has_break_lines_and_should_be_return_three_results_and_only_the_content_inside_of_the_tag(self):
-        #     """Return the three articles"""
-        #     text, expected_text_1, expected_text_2, expected_text_3 = get_three_expected_matches_and_only_the_content_inside_of_the_tag()
-        #
-        #     result = all_from('article', text, True, True, True)
-        #
-        #     self.assertEqual(3, len(result))
-        #     self.assertEqual(result[0], expected_text_1)
-        #     self.assertEqual(result[1], expected_text_2)
-        #     self.assertEqual(result[2], expected_text_3)
+    def test_when_text_has_break_lines_and_should_be_return_three_results_and_only_the_content_inside_of_the_tag(self):
+        """Return the three articles"""
+        text, expected_text_1, expected_text_2, expected_text_3 = get_three_expected_matches_and_only_the_content_inside_of_the_tag()
+
+        result = all_from('article', text, True, True)
+
+        self.assertEqual(3, len(result))
+        self.assertEqual(result[0], expected_text_1)
+        self.assertEqual(result[1], expected_text_2)
+        self.assertEqual(result[2], expected_text_3)
 
 
 def get_two_expected_matches():
@@ -120,13 +108,11 @@ def get_two_expected_matches_and_only_the_content_inside_of_the_tag():
 
     expected_text_1 = """
                     <span name="test">This is a test</span>
-                    <div class="line-red">Line #1</div>
-                """
+                    <div class="line-red">Line #1</div>"""
 
     expected_text_2 = """
-                    <span>My footer<span>
-                    <div class="line-green">Line #2</div>
-                """
+                <span>My footer<span>
+                <div class="line-green">Line #2</div>"""
 
     return text, expected_text_1, expected_text_2
 
@@ -186,17 +172,14 @@ def get_three_expected_matches_and_only_the_content_inside_of_the_tag():
     """
 
     expected_text_1 = """
-            <span>Article #1</span>
-        """
+            <span>Article #1</span>"""
 
     expected_text_2 = """
             <span>Article #2</span>
-            <div class="line-red">Line red</div>
-        """
+            <div class="line-red">Line red</div>"""
 
     expected_text_3 = """
-            <span>Article #3</span>
-        """
+            <span>Article #3</span>"""
 
     return text, expected_text_1, expected_text_2, expected_text_3
 

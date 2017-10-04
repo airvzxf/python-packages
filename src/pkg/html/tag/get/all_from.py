@@ -16,6 +16,7 @@ def __search_html_tags(tag=None, text="", ignore_case=True, get_only_content_ins
         return
 
     flags = re.RegexFlag.DOTALL
+
     if ignore_case:
         flags = flags | re.RegexFlag.IGNORECASE
 
@@ -24,43 +25,34 @@ def __search_html_tags(tag=None, text="", ignore_case=True, get_only_content_ins
 
     tag_matrix = {}
 
-    opened = re.finditer(reg_ex_start_tag, text)
-    for o in opened:
-        print("Opened start/end at {}: {}".format(o.span(), o.group()))
+    for o in re.finditer(reg_ex_start_tag, text):
         tag_matrix[o.start()] = {'value': 1, 'start_at': o.start(), 'end_at': o.end()}
-    print("")
 
-    closed = re.finditer(reg_ex_end_tag, text)
-    for c in closed:
-        print("Closed start/end at {}: {}".format(c.span(), c.group()))
+    for c in re.finditer(reg_ex_end_tag, text):
         tag_matrix[c.start()] = {'value': -1, 'start_at': c.start(), 'end_at': c.end()}
-    print("")
 
     tag_matrix = sorted(tag_matrix.items())
-    for tm in tag_matrix:
-        print("tag_matrix: ", tm)
-    print("")
 
     tags_found = []
     text_star_at = 0
     tags_opened = 0
     is_a_new_tag = True
+
     for _, tag in tag_matrix:
         if tags_opened == 0 and is_a_new_tag:
-            text_star_at = tag.get('start_at')
+            if get_only_content_inside:
+                text_star_at = tag.get('end_at')
+            else:
+                text_star_at = tag.get('start_at')
             is_a_new_tag = False
 
         tags_opened += tag.get('value')
-        if tags_opened == 0:
-            tags_found.append(text[text_star_at: tag.get('end_at')])
-            is_a_new_tag = True
 
-    print("text:\n", text)
-    for tf in tags_found:
-        print("tags_found:")
-        print("-----------------------")
-        print(tf)
-        print("-----------------------\n")
-    print("\n")
+        if tags_opened == 0:
+            if get_only_content_inside:
+                tags_found.append(text[text_star_at: tag.get('start_at')].rstrip())
+            else:
+                tags_found.append(text[text_star_at: tag.get('end_at')])
+            is_a_new_tag = True
 
     return tags_found
