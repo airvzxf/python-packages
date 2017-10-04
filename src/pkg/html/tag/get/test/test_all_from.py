@@ -24,7 +24,7 @@ class TestGetFromTag(unittest.TestCase):
 
     def test_when_text_has_break_lines_and_should_be_return_two_results(self):
         """Returns two results"""
-        text, expected_text_1, expected_text_2 = get_two_expected_matches()
+        text, expected_text_1, expected_text_2 = get_two_matches()
 
         result = all_from('div', text, True)
 
@@ -32,9 +32,9 @@ class TestGetFromTag(unittest.TestCase):
         self.assertEqual(result[0], expected_text_1)
         self.assertEqual(result[1], expected_text_2)
 
-    def test_when_text_has_break_lines_and_should_be_return_two_results_and_only_the_content_inside_of_the_tag(self):
+    def test_when_text_has_break_lines_and_should_be_return_two_results_and_the_content_inside_of_the_tag(self):
         """Returns two results"""
-        text, expected_text_1, expected_text_2 = get_two_expected_matches_and_only_the_content_inside_of_the_tag()
+        text, expected_text_1, expected_text_2 = get_two_matches_and_the_content_inside_of_the_tag()
 
         result = all_from('div', text, True, True)
 
@@ -44,7 +44,7 @@ class TestGetFromTag(unittest.TestCase):
 
     def test_when_text_has_break_lines_and_should_be_return_three_results(self):
         """Return the three articles"""
-        text, expected_text_1, expected_text_2, expected_text_3 = get_three_expected_matches()
+        text, expected_text_1, expected_text_2, expected_text_3 = get_three_matches()
 
         result = all_from('article', text, True)
 
@@ -53,9 +53,9 @@ class TestGetFromTag(unittest.TestCase):
         self.assertEqual(result[1], expected_text_2)
         self.assertEqual(result[2], expected_text_3)
 
-    def test_when_text_has_break_lines_and_should_be_return_three_results_and_only_the_content_inside_of_the_tag(self):
+    def test_when_text_has_break_lines_and_should_be_return_three_results_and_the_content_inside_of_the_tag(self):
         """Return the three articles"""
-        text, expected_text_1, expected_text_2, expected_text_3 = get_three_expected_matches_and_only_the_content_inside_of_the_tag()
+        text, expected_text_1, expected_text_2, expected_text_3 = get_three_matches_and_the_content_inside_of_the_tag()
 
         result = all_from('article', text, True, True)
 
@@ -65,7 +65,7 @@ class TestGetFromTag(unittest.TestCase):
         self.assertEqual(result[2], expected_text_3)
 
 
-def get_two_expected_matches():
+def get_two_matches():
     """Returns the text and the two expected strings"""
     text = """
             <article>
@@ -92,7 +92,7 @@ def get_two_expected_matches():
     return text, expected_text_1, expected_text_2
 
 
-def get_two_expected_matches_and_only_the_content_inside_of_the_tag():
+def get_two_matches_and_the_content_inside_of_the_tag():
     """Returns the text and the two expected strings but this strings are the content inside of the matcher tag"""
     text = """
             <article>
@@ -117,7 +117,7 @@ def get_two_expected_matches_and_only_the_content_inside_of_the_tag():
     return text, expected_text_1, expected_text_2
 
 
-def get_three_expected_matches():
+def get_three_matches():
     """Returns the text and the three expected strings"""
     text = """
         <article>
@@ -152,7 +152,7 @@ def get_three_expected_matches():
     return text, expected_text_1, expected_text_2, expected_text_3
 
 
-def get_three_expected_matches_and_only_the_content_inside_of_the_tag():
+def get_three_matches_and_the_content_inside_of_the_tag():
     """Returns the text and the three expected strings"""
     text = """
         <article>
