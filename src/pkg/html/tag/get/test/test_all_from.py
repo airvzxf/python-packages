@@ -9,6 +9,17 @@ from src.pkg.html.tag.get.all_from import all_from
 class TestGetFromTag(unittest.TestCase):
     """Tests for extract test tags"""
 
+    def test_when_sent_html_code_ignore_case(self):
+        """Returns the code inside of the tag <dIV...>...</dIV>"""
+        actual_text = all_from('div', '<dIV name="test">This is a test</dIV>')[0]
+        expected_text = '<dIV name="test">This is a test</dIV>'
+        self.assertEqual(actual_text, expected_text)
+
+    def test_when_sent_html_code_without_ignore_case(self):
+        """Returns None"""
+        actual_text = all_from('div', '<dIV name="test">This is a test</dIV>', False)
+        self.assertEqual(0, len(actual_text))
+
     def test_when_text_has_break_lines_and_should_be_return_two_results(self):
         """Returns two results"""
         text, expected_text_1, expected_text_2 = get_two_expected_matches()
@@ -19,29 +30,29 @@ class TestGetFromTag(unittest.TestCase):
         self.assertEqual(result[0], expected_text_1)
         self.assertEqual(result[1], expected_text_2)
 
-    # def test_when_text_has_break_lines_and_should_be_return_two_results_and_only_the_content_inside_of_the_tag(self):
-    #     """Returns two results"""
-    #     text, expected_text_1, expected_text_2 = get_two_expected_matches_and_only_the_content_inside_of_the_tag()
-    #
-    #     result = all_from('div', text, True, True, True)
-    #
-    #     print("len(result): ", len(result))
-    #     print("#1:")
-    #     print("--------------------------------------------------------------------------------------------------")
-    #     print(result[0])
-    #     print("--------------------------------------------------------------------------------------------------")
-    #     print(expected_text_1)
-    #     print("--------------------------------------------------------------------------------------------------")
-    #     print("#2:")
-    #     print("-------------------------------------------------")
-    #     print(result[1])
-    #     print("-------------------------------------------------")
-    #     print(expected_text_2)
-    #     print("-------------------------------------------------")
-    #
-    #     self.assertEqual(2, len(result))
-    #     self.assertEqual(result[0], expected_text_1)
-    #     self.assertEqual(result[1], expected_text_2)
+    def test_when_text_has_break_lines_and_should_be_return_two_results_and_only_the_content_inside_of_the_tag(self):
+        """Returns two results"""
+        text, expected_text_1, expected_text_2 = get_two_expected_matches_and_only_the_content_inside_of_the_tag()
+
+        result = all_from('div', text, True, True)
+
+        print("len(result): ", len(result))
+        print("#1:")
+        print("--------------------------------------------------------------------------------------------------")
+        print(result[0])
+        print("--------------------------------------------------------------------------------------------------")
+        print(expected_text_1)
+        print("--------------------------------------------------------------------------------------------------")
+        print("#2:")
+        print("-------------------------------------------------")
+        print(result[1])
+        print("-------------------------------------------------")
+        print(expected_text_2)
+        print("-------------------------------------------------")
+
+        self.assertEqual(2, len(result))
+        self.assertEqual(result[0], expected_text_1)
+        self.assertEqual(result[1], expected_text_2)
 
     def test_when_text_has_break_lines_and_should_be_return_three_results(self):
         """Return the three articles"""

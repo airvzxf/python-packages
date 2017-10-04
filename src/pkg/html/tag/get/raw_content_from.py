@@ -16,7 +16,6 @@ def __regex_html_tag_started_at(tag=None, text="", ignore_case=True):
         return
 
     flags = re.RegexFlag.DOTALL
-
     if ignore_case:
         flags = flags | re.RegexFlag.IGNORECASE
 

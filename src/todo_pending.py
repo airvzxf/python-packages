@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+
 # TODO: Move this function to other package which show the object's methods
 def __show_methods(main_object=None, execute=True):
     if main_object is None:

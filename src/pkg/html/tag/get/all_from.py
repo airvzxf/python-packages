@@ -16,7 +16,6 @@ def __search_html_tags(tag=None, text="", ignore_case=True, get_only_content_ins
         return
 
     flags = re.RegexFlag.DOTALL
-
     if ignore_case:
         flags = flags | re.RegexFlag.IGNORECASE
 
@@ -24,11 +23,13 @@ def __search_html_tags(tag=None, text="", ignore_case=True, get_only_content_ins
     reg_ex_end_tag = re.compile(r"</{0}[^<]*?>".format(tag), flags)
 
     tag_matrix = {}
+
     opened = re.finditer(reg_ex_start_tag, text)
     for o in opened:
         print("Opened start/end at {}: {}".format(o.span(), o.group()))
         tag_matrix[o.start()] = {'value': 1, 'start_at': o.start(), 'end_at': o.end()}
     print("")
+
     closed = re.finditer(reg_ex_end_tag, text)
     for c in closed:
         print("Closed start/end at {}: {}".format(c.span(), c.group()))
@@ -44,7 +45,6 @@ def __search_html_tags(tag=None, text="", ignore_case=True, get_only_content_ins
     text_star_at = 0
     tags_opened = 0
     is_a_new_tag = True
-
     for _, tag in tag_matrix:
         if tags_opened == 0 and is_a_new_tag:
             text_star_at = tag.get('start_at')
