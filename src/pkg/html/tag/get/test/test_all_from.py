@@ -3,17 +3,17 @@
 
 import unittest
 
-from src.pkg.regEx.html.extract_tags import get_all_tags_from
+from src.pkg.html.tag.get.all_from import all_from
 
 
 class TestGetFromTag(unittest.TestCase):
-    """Tests for extract html tags"""
+    """Tests for extract test tags"""
 
     def test_when_text_has_break_lines_and_should_be_return_two_results(self):
         """Returns two results"""
         text, expected_text_1, expected_text_2 = get_two_expected_matches()
 
-        result = get_all_tags_from('div', text, True)
+        result = all_from('div', text, True)
 
         self.assertEqual(2, len(result))
         self.assertEqual(result[0], expected_text_1)
@@ -23,7 +23,7 @@ class TestGetFromTag(unittest.TestCase):
     #     """Returns two results"""
     #     text, expected_text_1, expected_text_2 = get_two_expected_matches_and_only_the_content_inside_of_the_tag()
     #
-    #     result = get_all_tags_from('div', text, True, True, True)
+    #     result = all_from('div', text, True, True, True)
     #
     #     print("len(result): ", len(result))
     #     print("#1:")
@@ -47,7 +47,7 @@ class TestGetFromTag(unittest.TestCase):
         """Return the three articles"""
         text, expected_text_1, expected_text_2, expected_text_3 = get_three_expected_matches()
 
-        result = get_all_tags_from('article', text, True)
+        result = all_from('article', text, True)
 
         self.assertEqual(3, len(result))
         self.assertEqual(result[0], expected_text_1)
@@ -58,7 +58,7 @@ class TestGetFromTag(unittest.TestCase):
         #     """Return the three articles"""
         #     text, expected_text_1, expected_text_2, expected_text_3 = get_three_expected_matches_and_only_the_content_inside_of_the_tag()
         #
-        #     result = get_all_tags_from('article', text, True, True, True)
+        #     result = all_from('article', text, True, True, True)
         #
         #     self.assertEqual(3, len(result))
         #     self.assertEqual(result[0], expected_text_1)

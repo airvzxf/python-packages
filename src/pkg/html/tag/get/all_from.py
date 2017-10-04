@@ -4,18 +4,11 @@
 import re
 
 
-def get_all_tags_from(tag=None, text="", ignore_case=True, get_only_content_inside=False):
+def all_from(tag=None, text="", ignore_case=True, get_only_content_inside=False):
     if tag is None:
         return
 
     return __search_html_tags(tag, text, ignore_case, get_only_content_inside)
-
-
-def get_tag_content_started_from(tag=None, text="", ignore_case=True):
-    if tag is None:
-        return
-
-    return __regex_html_tag_started_at(tag, text, ignore_case)
 
 
 def __search_html_tags(tag=None, text="", ignore_case=True, get_only_content_inside=False):
@@ -71,44 +64,3 @@ def __search_html_tags(tag=None, text="", ignore_case=True, get_only_content_ins
     print("\n")
 
     return tags_found
-
-
-def __regex_html_tag_started_at(tag=None, text="", ignore_case=True):
-    if tag is None:
-        return
-
-    flags = re.RegexFlag.DOTALL
-
-    if ignore_case:
-        flags = flags | re.RegexFlag.IGNORECASE
-
-    reg_ex_html_tag = r"<{0}[^<]*?>(.*)</{0}>".format(tag)
-
-    pattern_get_from_tag = re.compile(reg_ex_html_tag, flags)
-
-    matches = re.search(pattern_get_from_tag, text)
-
-    if matches is not None:
-        return matches.group(1)
-
-    return
-
-
-# TODO: Move this function to other package which show the object's methods
-def __show_methods(main_object=None, execute=True):
-    if main_object is None:
-        return
-
-    print("{}".format(main_object))
-    print("{}".format(dir(main_object)))
-
-    if execute:
-        for m in dir(main_object):
-            try:
-                print("object.{}(): {}".format(m, eval("main_object.{}()".format(m))))
-            except AttributeError:
-                pass
-            except TypeError:
-                pass
-            except StopIteration:
-                pass
