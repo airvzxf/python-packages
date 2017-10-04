@@ -9,12 +9,12 @@ def get_from_tag(tag=None, text="", ignore_case=True, multi_matches=False, get_o
         return
 
     if multi_matches:
-        return __search_html_sub_tags(tag, text, ignore_case, get_only_content_inside)
+        return __search_html_tags(tag, text, ignore_case, get_only_content_inside)
     else:
-        return __search_from_tag_reg_ex(tag, text, ignore_case, get_only_content_inside)
+        return __regex_html_tag_started_at(tag, text, ignore_case)
 
 
-def __search_html_sub_tags(tag=None, text="", ignore_case=True, get_only_content_inside=False):
+def __search_html_tags(tag=None, text="", ignore_case=True, get_only_content_inside=False):
     if tag is None:
         return
 
@@ -69,7 +69,7 @@ def __search_html_sub_tags(tag=None, text="", ignore_case=True, get_only_content
     return tags_found
 
 
-def __search_from_tag_reg_ex(tag=None, text="", ignore_case=True, get_only_content_inside=False):
+def __regex_html_tag_started_at(tag=None, text="", ignore_case=True):
     if tag is None:
         return
 
