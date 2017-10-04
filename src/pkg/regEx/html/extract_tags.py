@@ -4,14 +4,18 @@
 import re
 
 
-def get_from_tag(tag=None, text="", ignore_case=True, multi_matches=False, get_only_content_inside=False):
+def get_all_tags_from(tag=None, text="", ignore_case=True, get_only_content_inside=False):
     if tag is None:
         return
 
-    if multi_matches:
-        return __search_html_tags(tag, text, ignore_case, get_only_content_inside)
-    else:
-        return __regex_html_tag_started_at(tag, text, ignore_case)
+    return __search_html_tags(tag, text, ignore_case, get_only_content_inside)
+
+
+def get_tag_content_started_from(tag=None, text="", ignore_case=True):
+    if tag is None:
+        return
+
+    return __regex_html_tag_started_at(tag, text, ignore_case)
 
 
 def __search_html_tags(tag=None, text="", ignore_case=True, get_only_content_inside=False):
