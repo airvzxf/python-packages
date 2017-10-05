@@ -3,6 +3,8 @@
 
 import re
 
+from src.pkg.html.tag.regex.get_raw_open_close import get_raw_open_close as get_raw_opened_closed_tag
+
 
 def raw_content_from(tag=None, text="", ignore_case=True):
     if tag is None:
@@ -20,9 +22,7 @@ def __regex_html_tag_started_at(tag=None, text="", ignore_case=True):
     if ignore_case:
         flags = flags | re.RegexFlag.IGNORECASE
 
-    reg_ex_html_tag = r"<{0}[^<]*?>(.*)</{0}>".format(tag)
-
-    pattern_get_from_tag = re.compile(reg_ex_html_tag, flags)
+    pattern_get_from_tag = re.compile(get_raw_opened_closed_tag(tag), flags)
 
     matches = re.search(pattern_get_from_tag, text)
 

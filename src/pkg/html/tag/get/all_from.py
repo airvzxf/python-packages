@@ -3,6 +3,9 @@
 
 import re
 
+from src.pkg.html.tag.regex.get_open import get_open as get_opened_tag
+from src.pkg.html.tag.regex.get_close import get_close as get_closed_tag
+
 
 def all_from(tag=None, text="", ignore_case=True, get_only_content_inside=False):
     if tag is None:
@@ -20,8 +23,8 @@ def __search_html_tags(tag=None, text="", ignore_case=True, get_content_inside=F
     if ignore_case:
         flags = flags | re.RegexFlag.IGNORECASE
 
-    reg_ex_start_tag = re.compile(r"<{0}[^<]*?>".format(tag), flags)
-    reg_ex_end_tag = re.compile(r"</{0}[^<]*?>".format(tag), flags)
+    reg_ex_start_tag = re.compile(get_opened_tag(tag), flags)
+    reg_ex_end_tag = re.compile(get_closed_tag(tag), flags)
 
     tag_matrix = {}
 
