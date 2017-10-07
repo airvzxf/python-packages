@@ -6,7 +6,7 @@ import unittest
 from src.pkg.html.tag.get.raw_content_from import raw_content_from
 
 
-class TestGetFromTag(unittest.TestCase):
+class TestPkgHtmlTagGetRawContentFrom(unittest.TestCase):
     """Tests for extract test tags"""
 
     def test_when_the_tag_param_is_nil(self):
