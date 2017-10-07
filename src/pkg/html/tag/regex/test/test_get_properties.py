@@ -13,7 +13,7 @@ class TestPkgHtmlTagRegexGetProperties(unittest.TestCase):
         """Return the correct regex pattern"""
         expected_string = get_properties()
 
-        self.assertEqual(r"(\S+)=[\"']?((?:.(?![\"']?\s+(?:\S+)=|[>\"']))+.)[\"']?", expected_string)
+        self.assertEqual(r"(\S+)\s*=\s*[\"']?((?:.(?![\"']?\s+(?:\S+)=|[>\"']))?[^\"']*)[\"']?", expected_string)
 
 
 if __name__ == '__main__':
