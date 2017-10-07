@@ -3,15 +3,15 @@
 
 import unittest
 
-from src.pkg.html.tag.get.all_from import all_from
+from src.pkg.html.tag.get.all_properties import all_properties
 
 
-class TestPkgHtmlTagAllFrom(unittest.TestCase):
-    """Tests for extract test tags"""
+class TestGetAllProperties(unittest.TestCase):
+    """Tests for extract properties from the tags"""
 
-    def test_when_sent_html_code_ignore_case(self):
+    def test_extract_all_properties(self):
         """Returns the code inside of the tag <dIV...>...</dIV>"""
-        actual_text = all_from('div', '<dIV name="test">This is a test</dIV>')[0]
+        properties = all_properties('')
         expected_text = '<dIV name="test">This is a test</dIV>'
 
         self.assertEqual(actual_text, expected_text)
