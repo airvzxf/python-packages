@@ -23,15 +23,15 @@ def __search_html_tags(tag=None, text="", ignore_case=True, get_content_inside=F
     if ignore_case:
         flags = flags | re.RegexFlag.IGNORECASE
 
-    reg_ex_start_tag = re.compile(get_opened_tag(tag), flags)
-    reg_ex_end_tag = re.compile(get_closed_tag(tag), flags)
+    regex_start_tag = re.compile(get_opened_tag(tag), flags)
+    regex_end_tag = re.compile(get_closed_tag(tag), flags)
 
     tag_matrix = {}
 
-    for o in re.finditer(reg_ex_start_tag, text):
+    for o in re.finditer(regex_start_tag, text):
         tag_matrix[o.start()] = {'value': 1, 'start_at': o.start(), 'end_at': o.end()}
 
-    for c in re.finditer(reg_ex_end_tag, text):
+    for c in re.finditer(regex_end_tag, text):
         tag_matrix[c.start()] = {'value': -1, 'start_at': c.start(), 'end_at': c.end()}
 
     tag_matrix = sorted(tag_matrix.items())
