@@ -2,6 +2,9 @@
 # -*- coding: UTF-8 -*-
 
 
-def get_properties():
+def get_properties(trim=True):
 
-    return r"(\S+)\s*=\s*[\"']?((?:.(?![\"']?\s+(?:\S+)=|[>\"']))?[^\"']*)[\"']?"
+    if trim:
+        return r"(\S+)\s*=\s*([']|[\"])\s*([\W\w]*?)\s*\2"
+    else:
+        return r"(\S+)\s*=\s*([']|[\"])([\W\w]*?)\2"
