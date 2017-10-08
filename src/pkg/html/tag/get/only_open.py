@@ -14,9 +14,6 @@ def only_open(tag='', text=""):
 
     regex_tag = re.compile(get_opened_tag(tag), flags)
 
-    tags = []
-
-    for tag in re.finditer(regex_tag, text):
-        tags.append(tag.group())
+    tags = re.findall(regex_tag, text)
 
     return tags
