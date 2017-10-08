@@ -6,182 +6,99 @@ import unittest
 from src.pkg.html.tag.get.all_properties import all_properties
 
 
-class TestGetAllProperties(unittest.TestCase):
+class TestPkgHtmlTagGetAllProperties(unittest.TestCase):
     """Tests for extract properties from the tags"""
 
-    def test_extract_all_properties(self):
-        """Returns the code inside of the tag <dIV...>...</dIV>"""
-        properties = all_properties('')
-        expected_text = '<dIV name="test">This is a test</dIV>'
+    def test_when_tag_is_not_send_return_none(self):
+        """Returns nil if we don't send the tag"""
+        expected_property = all_properties()
 
-        self.assertEqual(actual_text, expected_text)
+        self.assertIsNone(expected_property)
 
-    def test_when_sent_html_code_without_ignore_case(self):
-        """Returns None"""
-        actual_text = all_from('div', '<dIV name="test">This is a test</dIV>', False)
+    def test_extract_all_properties_with_one_simple_tag(self):
+        """Extract properties for a simple html tag"""
+        properties = all_properties(tag='div', text='''<div id="a" class='b'>Hello</div>''')
+        first_tag = properties[0]
 
-        self.assertEqual(0, len(actual_text))
+        self.assertEqual(first_tag[0][0], 'id')
+        self.assertEqual(first_tag[0][1], 'a')
 
-    def test_when_text_has_break_lines_and_should_be_return_two_results(self):
-        """Returns two results"""
-        text, expected_text_1, expected_text_2 = get_two_matches()
+        self.assertEqual(first_tag[1][0], 'class')
+        self.assertEqual(first_tag[1][1], 'b')
 
-        result = all_from('div', text, True)
+    def test_if_the_property_start_with_double_quotes_it_accept_single_quotes_and_inversely(self):
+        """Extract properties for a simple html tag"""
+        properties = all_properties(tag='div', text='''<div title="You're" data-type='She said "ok"'>Hello</div>''')
+        first_tag = properties[0]
 
-        self.assertEqual(2, len(result))
-        self.assertEqual(result[0], expected_text_1)
-        self.assertEqual(result[1], expected_text_2)
+        self.assertEqual(first_tag[0][0], 'title')
+        self.assertEqual(first_tag[0][1], "You're")
 
-    def test_when_text_has_break_lines_and_should_be_return_two_results_and_the_content_inside_of_the_tag(self):
-        """Returns two results"""
-        text, expected_text_1, expected_text_2 = get_two_matches_and_the_content_inside_of_the_tag()
+        self.assertEqual(first_tag[1][0], 'data-type')
+        self.assertEqual(first_tag[1][1], 'She said "ok"')
 
-        result = all_from('div', text, True, True)
+    def test_if_the_properties_contains_the_greater_or_less_than_symbols(self):
+        """Extract properties for a simple html tag"""
+        properties = all_properties(tag='div', text='''<div title="a>b=c<d" data-type='a>b=c<d'>Hello</div>''')
+        first_tag = properties[0]
 
-        self.assertEqual(2, len(result))
-        self.assertEqual(result[0], expected_text_1)
-        self.assertEqual(result[1], expected_text_2)
+        self.assertEqual(first_tag[0][0], 'title')
+        self.assertEqual(first_tag[0][1], 'a>b=c<d')
 
-    def test_when_text_has_break_lines_and_should_be_return_three_results(self):
-        """Return the three articles"""
-        text, expected_text_1, expected_text_2, expected_text_3 = get_three_matches()
+        self.assertEqual(first_tag[1][0], 'data-type')
+        self.assertEqual(first_tag[1][1], 'a>b=c<d')
 
-        result = all_from('article', text, True)
+    def test_extract_all_properties_with_one_simple_tag_spaces_between(self):
+        """Extract properties for a simple html tag"""
+        properties = all_properties(tag='div', text='''<div  	 data-type=" c  " title = "d">Hello</div>''')
+        first_tag = properties[0]
 
-        self.assertEqual(3, len(result))
-        self.assertEqual(result[0], expected_text_1)
-        self.assertEqual(result[1], expected_text_2)
-        self.assertEqual(result[2], expected_text_3)
+        self.assertEqual(first_tag[0][0], 'data-type')
+        self.assertEqual(first_tag[0][1], 'c')
 
-    def test_when_text_has_break_lines_and_should_be_return_three_results_and_the_content_inside_of_the_tag(self):
-        """Return the three articles"""
-        text, expected_text_1, expected_text_2, expected_text_3 = get_three_matches_and_the_content_inside_of_the_tag()
+        self.assertEqual(first_tag[1][0], 'title')
+        self.assertEqual(first_tag[1][1], 'd')
 
-        result = all_from('article', text, True, True)
+    def test_extract_all_properties_with_one_simple_tag_but_not_trim_the_spaces(self):
+        """Extract properties for a simple html tag"""
+        properties = all_properties(tag='div', text='''<div class="    e     ">Hello</div>''', trim=False)
+        first_tag = properties[0]
 
-        self.assertEqual(3, len(result))
-        self.assertEqual(result[0], expected_text_1)
-        self.assertEqual(result[1], expected_text_2)
-        self.assertEqual(result[2], expected_text_3)
+        self.assertEqual(first_tag[0][0], 'class')
+        self.assertEqual(first_tag[0][1], '    e     ')
 
+    def test_extract_all_properties_with_one_simple_tag_with_special_characters(self):
+        """Extract properties for a simple html tag"""
+        expected_string = '''!#$%&()*+,-./:;?<=>@[\]^_`{|}~¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑ'''
+        expected_string += '''ÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚě'''
+        expected_string += '''ĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤť'''
+        expected_string += '''ŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſƀƁƂƃƄƅƆƇƈƉƊƋƌƍƎƏƐƑƒƓƔƕƖƗƘƙƚƛƜƝƞƟƠơƢƣƤƥƦƧƨƩƪƫƬƭƮƯ'''
+        expected_string += '''ưƱƲƳƴƵƶƷƸƹƺƻƼƽƾƿǀǁǂǃǄǅǆǇǈǉǊǋǌǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜǝǞǟǠǡǢǣǤǥǦǧǨǩǪǫǬǭǮǯǰǱǲǳǴǵǶǷǸǹ'''
+        expected_string += '''ǺǻǼǽǾǿȀȁȂȃȄȅȆȇȈȉȊȋȌȍȎȏȐȑȒȓȔȕȖȗȘșȚțȜȝȞȟȠȡȢȣȤȥȦȧȨȩȪȫȬȭȮȯȰȱȲȳȴȵȶȷȸȹȺȻȼȽȾȿɀɁɂɃɄ'''
+        expected_string += '''ɅɆɇɈɉɊɋɌɍɎ'''
 
-def get_two_matches():
-    """Returns the text and the two expected strings"""
-    text = """
-            <article>
-                <div name="div1">
-                    <span name="test">This is a test</span>
-                    <div class="line-red">Line #1</div>
-                </div>
-            </article>
-            <div name="footer">
-                <span>My footer<span>
-                <div class="line-green">Line #2</div>
-            </div>"""
+        properties = all_properties(tag='div', text='''<div data-type="'''+expected_string+'''">Hello</div>''')
+        first_tag = properties[0]
 
-    expected_text_1 = """<div name="div1">
-                    <span name="test">This is a test</span>
-                    <div class="line-red">Line #1</div>
-                </div>"""
+        self.assertEqual(first_tag[0][0], 'data-type')
+        self.assertEqual(first_tag[0][1], expected_string)
 
-    expected_text_2 = """<div name="footer">
-                <span>My footer<span>
-                <div class="line-green">Line #2</div>
-            </div>"""
+    def test_extract_all_properties_with_two_simple_tag(self):
+        properties = all_properties(tag='div', text='''<div id="a" class='b'>H</div><div id='1' class="2">W</div>''')
+        first_tag = properties[0]
+        second_tag = properties[1]
 
-    return text, expected_text_1, expected_text_2
+        self.assertEqual(first_tag[0][0], 'id')
+        self.assertEqual(first_tag[0][1], 'a')
 
+        self.assertEqual(first_tag[1][0], 'class')
+        self.assertEqual(first_tag[1][1], 'b')
 
-def get_two_matches_and_the_content_inside_of_the_tag():
-    """Returns the text and the two expected strings but this strings are the content inside of the matcher tag"""
-    text = """
-            <article>
-                <div name="div1">
-                    <span name="test">This is a test</span>
-                    <div class="line-red">Line #1</div>
-                </div>
-            </article>
-            <div name="footer">
-                <span>My footer<span>
-                <div class="line-green">Line #2</div>
-            </div>"""
+        self.assertEqual(second_tag[0][0], 'id')
+        self.assertEqual(second_tag[0][1], '1')
 
-    expected_text_1 = """
-                    <span name="test">This is a test</span>
-                    <div class="line-red">Line #1</div>"""
-
-    expected_text_2 = """
-                <span>My footer<span>
-                <div class="line-green">Line #2</div>"""
-
-    return text, expected_text_1, expected_text_2
-
-
-def get_three_matches():
-    """Returns the text and the three expected strings"""
-    text = """
-        <article>
-            <span>Article #1</span>
-        </article>
-        <div>Other:</div>
-        <br>
-        <article>
-            <span>Article #2</span>
-            <div class="line-red">Line red</div>
-        </article>
-        <div>Other:</div>
-        <br>
-        <article>
-            <span>Article #3</span>
-        </article>
-    """
-
-    expected_text_1 = """<article>
-            <span>Article #1</span>
-        </article>"""
-
-    expected_text_2 = """<article>
-            <span>Article #2</span>
-            <div class="line-red">Line red</div>
-        </article>"""
-
-    expected_text_3 = """<article>
-            <span>Article #3</span>
-        </article>"""
-
-    return text, expected_text_1, expected_text_2, expected_text_3
-
-
-def get_three_matches_and_the_content_inside_of_the_tag():
-    """Returns the text and the three expected strings"""
-    text = """
-        <article>
-            <span>Article #1</span>
-        </article>
-        <div>Other:</div>
-        <br>
-        <article>
-            <span>Article #2</span>
-            <div class="line-red">Line red</div>
-        </article>
-        <div>Other:</div>
-        <br>
-        <article>
-            <span>Article #3</span>
-        </article>
-    """
-
-    expected_text_1 = """
-            <span>Article #1</span>"""
-
-    expected_text_2 = """
-            <span>Article #2</span>
-            <div class="line-red">Line red</div>"""
-
-    expected_text_3 = """
-            <span>Article #3</span>"""
-
-    return text, expected_text_1, expected_text_2, expected_text_3
+        self.assertEqual(second_tag[1][0], 'class')
+        self.assertEqual(second_tag[1][1], '2')
 
 
 if __name__ == '__main__':
