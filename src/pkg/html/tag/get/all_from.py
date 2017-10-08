@@ -8,7 +8,7 @@ from src.pkg.html.tag.regex.get_close import get_close as get_closed_tag
 
 
 def all_from(tag=None, text="", ignore_case=True, get_only_content_inside=False):
-    if tag is None:
+    if tag is None or tag is '':
         return
 
     return __search_html_tags(tag, text, ignore_case, get_only_content_inside)

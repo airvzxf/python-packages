@@ -9,6 +9,18 @@ from src.pkg.html.tag.get.all_from import all_from
 class TestPkgHtmlTagAllFrom(unittest.TestCase):
     """Tests for extract test tags"""
 
+    def test_when_send_none_returns_none(self):
+        """Returns None"""
+        actual_text = all_from()
+
+        self.assertIsNone(actual_text)
+
+    def test_when_send_empty_returns_none(self):
+        """Returns None"""
+        actual_text = all_from(tag='')
+
+        self.assertIsNone(actual_text)
+
     def test_when_sent_html_code_ignore_case(self):
         """Returns the code inside of the tag <dIV...>...</dIV>"""
         actual_text = all_from('div', '<dIV name="test">This is a test</dIV>')[0]
