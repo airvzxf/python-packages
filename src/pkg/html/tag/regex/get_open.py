@@ -2,8 +2,11 @@
 # -*- coding: UTF-8 -*-
 
 
-def get_open(tag=None):
+def get_open(tag=''):
     if tag is None:
         return
 
-    return r"<{0}[^<]*?>".format(tag)
+    if tag is '':
+        return r"<[^/]+?(?:\".*?\"|'.*?'|.*?)*?>"
+    else:
+        return r"<{0}(?:\".*?\"|'.*?'|.*?)*?>".format(tag)
