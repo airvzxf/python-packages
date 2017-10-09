@@ -11,7 +11,7 @@ class TestPkgHtmlTagGetRawContentFrom(unittest.TestCase):
 
     def test_when_the_tag_param_is_nil(self):
         """Returns nothing"""
-        self.assertIsNone(raw_content_from(None))
+        self.assertIsNone(raw_content_from())
 
     def test_when_sent_html_code(self):
         """Returns the code inside of the tag <div...>...</div>"""
