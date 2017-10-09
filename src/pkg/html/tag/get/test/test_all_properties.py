@@ -77,7 +77,7 @@ class TestPkgHtmlTagGetAllProperties(unittest.TestCase):
         expected_string += '''ǺǻǼǽǾǿȀȁȂȃȄȅȆȇȈȉȊȋȌȍȎȏȐȑȒȓȔȕȖȗȘșȚțȜȝȞȟȠȡȢȣȤȥȦȧȨȩȪȫȬȭȮȯȰȱȲȳȴȵȶȷȸȹȺȻȼȽȾȿɀɁɂɃɄ'''
         expected_string += '''ɅɆɇɈɉɊɋɌɍɎ'''
 
-        properties = all_properties(tag='div', text='''<div data-type="'''+expected_string+'''">Hello</div>''')
+        properties = all_properties(tag='div', text='''<div data-type="''' + expected_string + '''">Hello</div>''')
         first_tag = properties[0]
 
         self.assertEqual(first_tag[0][0], 'data-type')
