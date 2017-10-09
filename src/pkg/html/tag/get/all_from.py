@@ -21,7 +21,7 @@ def __search_html_tags(tag=None, text="", ignore_case=True, get_content_inside=F
     flags = re.RegexFlag.DOTALL
 
     if ignore_case:
-        flags = flags | re.RegexFlag.IGNORECASE
+        flags = re.RegexFlag.DOTALL | re.RegexFlag.IGNORECASE
 
     regex_start_tag = re.compile(get_opened_tag(tag), flags)
     regex_end_tag = re.compile(get_closed_tag(tag), flags)

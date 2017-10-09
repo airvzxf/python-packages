@@ -20,7 +20,7 @@ def __regex_html_tag_started_at(tag=None, text="", ignore_case=True):
     flags = re.RegexFlag.DOTALL
 
     if ignore_case:
-        flags = flags | re.RegexFlag.IGNORECASE
+        flags = re.RegexFlag.DOTALL | re.RegexFlag.IGNORECASE
 
     pattern_get_from_tag = re.compile(get_raw_opened_closed_tag(tag), flags)
 
