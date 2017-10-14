@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+"""Print all the methods, and also the available methods in a specific object."""
 
 
-# TODO: Move this function to other package which show the object's methods
-def __show_methods(main_object=None, execute=True):
+# TODO: Create Unit Test and DocStrings.
+def show_available(main_object=None, show_all=True, show_available=True):
     if main_object is None:
         return
 
     print("{}".format(main_object))
-    print("{}".format(dir(main_object)))
 
-    if execute:
+    if show_all:
+        print("{}".format(dir(main_object)))
+
+    if show_available:
         for m in dir(main_object):
             try:
                 print("object.{}(): {}".format(m, eval("main_object.{}()".format(m))))
