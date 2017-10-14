@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+"""Test case for get only opened HTML tags which start with a specific tag."""
 
 import unittest
 

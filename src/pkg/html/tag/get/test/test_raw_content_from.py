@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+"""Test case for get raw content from HTML tag."""
 
 import unittest
 

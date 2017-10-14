@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+"""Test case for get all the closed HTML tags."""
 
 import unittest
 

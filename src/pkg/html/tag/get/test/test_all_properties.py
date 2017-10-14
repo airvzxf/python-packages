@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+"""Test case for get all properties inside of the HTML tag."""
 
 import unittest
 

@@ -1,13 +1,34 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+"""Search all HTML content inside of specific tag.
+
+Cases:
+- If exists tags inside of the main tag it only return the principal tag.
+Example: all_from(tag=div, text=html_code)
+    HTML code: <div id ="id_1"><span>bla1</span><div id="id_2">bla2</div><hr/><div>
+    Returns: ['<span>bla1</span><div id="id_2">bla2</div><hr/>']
+- Otherwise if exist more than one outside tag it return all the next tags too.
+Example: all_from(tag=div, text=html_code)
+    HTML code: <div id ="id_1"><span>bla1</span></div><div id="id_2">bla2<hr/><div>
+    Returns: ['<span>bla1</span>', 'bla2<hr/>']
+"""
 
 import re
 
-from src.pkg.html.tag.regex.get_open import get_open as get_opened_tag
 from src.pkg.html.tag.regex.get_close import get_close as get_closed_tag
+from src.pkg.html.tag.regex.get_open import get_open as get_opened_tag
 
 
 def all_from(tag=None, text="", ignore_case=True, get_only_content_inside=False):
+    """Search a specific tag in all HTML code and return a list of occurrences.
+
+    :param tag: HTML tag like div, article, body, etc., looks like <div, <body.
+    :param text: The HTML source code.
+    :param ignore_case: If is true it should be search in lowercase and uppercase.
+    :param get_only_content_inside: If is true return only the string after <div...> and before </div>
+    otherwise return all included the tag and its properties.
+    :return: List with the matched tags.
+    """
     if tag is None or tag is '':
         return
 
