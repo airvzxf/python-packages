@@ -26,13 +26,8 @@ def show_available(main_object=None, print_all=True, print_available=True):
             if m == "__dir__":
                 continue
 
+            # noinspection PyBroadException
             try:
                 print("object.{}(): {}".format(m, eval("main_object.{}()".format(m))))
-            except AttributeError:
-                pass
-            except IndexError:
-                pass
-            except TypeError:
-                pass
-            except StopIteration:
+            except Exception:
                 pass
