@@ -2,16 +2,30 @@
 # -*- coding: UTF-8 -*-
 """Test case for show methods when you need debug."""
 
-import unittest
 import contextlib
-from io import StringIO
 import re
+import unittest
+from io import StringIO
 
 from src.pkg.debug.method.show_available import show_available
 
 
 class TestPkgDebugMethodShowAvailable(unittest.TestCase):
     """Tests for show methods in debug mode"""
+
+    def setUp(self):
+        """Always check if the method crash with any error, it shouldn't crash"""
+        _catch_any_exception_error(self)
+
+    def test_when_main_object_is_none_not_execute_the_statements(self):
+        """"Not print anything in the console"""
+
+        temp_stdout = StringIO()
+        with contextlib.redirect_stdout(temp_stdout):
+            show_available(print_all=True, print_available=True)
+        output = _output_formatter(temp_stdout)
+
+        self.assertEqual('', output)
 
     def test_show_all_but_not_show_available(self):
         """Catch the print output"""
@@ -61,6 +75,19 @@ class TestPkgDebugMethodShowAvailable(unittest.TestCase):
         expected_output += "object.sort(): None"
 
         self.assertEqual(expected_output, output)
+
+
+def _catch_any_exception_error(self):
+    method_returned = False
+
+    # noinspection PyBroadException
+    try:
+        with contextlib.redirect_stdout(StringIO()):
+            method_returned = show_available(main_object={}, print_all=False, print_available=True)
+    except Exception:
+        pass
+
+    self.assertIsNone(method_returned, "It shouldn't crash wit any exception error. All the error should be pass.")
 
 
 def _output_formatter(stdout_string=None):
