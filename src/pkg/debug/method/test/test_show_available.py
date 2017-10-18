@@ -13,9 +13,10 @@ from src.pkg.debug.method.show_available import show_available
 class TestPkgDebugMethodShowAvailable(unittest.TestCase):
     """Tests for show methods in debug mode"""
 
-    def setUp(self):
-        """Always check if the method crash with any error, it shouldn't crash"""
-        _catch_any_exception_error(self)
+    def __init__(self, *args, **kwargs):
+        super(TestPkgDebugMethodShowAvailable, self).__init__(*args, **kwargs)
+        _catch_any_exception_error(self, main_object={})
+        _catch_any_exception_error(self, should_fail=True)
 
     def test_when_main_object_is_none_not_execute_the_statements(self):
         """"Not print anything in the console"""
@@ -77,17 +78,21 @@ class TestPkgDebugMethodShowAvailable(unittest.TestCase):
         self.assertEqual(expected_output, output)
 
 
-def _catch_any_exception_error(self):
-    method_returned = False
-
+def _catch_any_exception_error(self, main_object=None, should_fail=False):
     # noinspection PyBroadException
     try:
+        if should_fail:
+            raise Exception("It fails for check the except Exception was executed at least once.")
+            pass
+
         with contextlib.redirect_stdout(StringIO()):
-            method_returned = show_available(main_object={}, print_all=False, print_available=True)
+            method_returned = show_available(main_object=main_object, print_all=False, print_available=True)
     except Exception:
+        method_returned = True
         pass
 
-    self.assertIsNone(method_returned, "It shouldn't crash wit any exception error. All the error should be pass.")
+    if not should_fail:
+        self.assertIsNone(method_returned, "It shouldn't crash. All the exception errors should be pass.")
 
 
 def _output_formatter(stdout_string=None):
