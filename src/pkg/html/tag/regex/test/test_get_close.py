@@ -21,7 +21,3 @@ class TestPkgHtmlTagRegexGetClose(unittest.TestCase):
         expected_string = get_close("article")
 
         self.assertEqual(r"</article[^<]*?>", expected_string)
-
-
-if __name__ == '__main__':
-    unittest.main()

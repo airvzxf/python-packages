@@ -21,7 +21,3 @@ class TestPkgHtmlTagRegexGetProperties(unittest.TestCase):
         expected_string = get_properties(trim=False)
 
         self.assertEqual(r"(\S+)\s*=\s*([']|[\"])([\W\w]*?)\2", expected_string)
-
-
-if __name__ == '__main__':
-    unittest.main()

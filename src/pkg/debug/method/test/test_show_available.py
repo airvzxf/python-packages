@@ -91,14 +91,7 @@ def _catch_any_exception_error(self):
 
 
 def _output_formatter(stdout_string=None):
-    if stdout_string is None:
-        return
-
     get_value = stdout_string.getvalue().strip()
     output = re.sub(r"0x\w+", "0x0", get_value)
 
     return output
-
-
-if __name__ == '__main__':
-    unittest.main()

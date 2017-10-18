@@ -195,7 +195,3 @@ def get_three_matches_and_the_content_inside_of_the_tag():
             <span>Article #3</span>"""
 
     return text, expected_text_1, expected_text_2, expected_text_3
-
-
-if __name__ == '__main__':
-    unittest.main()

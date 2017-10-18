@@ -21,7 +21,3 @@ class TestPkgHtmlTagRegexGetRawOpenClose(unittest.TestCase):
         expected_string = get_raw_open_close("article")
 
         self.assertEqual(r"<article[^<]*?>(.*)</article>", expected_string)
-
-
-if __name__ == '__main__':
-    unittest.main()

@@ -36,9 +36,6 @@ def all_from(tag=None, text="", ignore_case=True, get_only_content_inside=False)
 
 
 def __search_html_tags(tag=None, text="", ignore_case=True, get_content_inside=False):
-    if tag is None:
-        return
-
     flags = re.RegexFlag.DOTALL
 
     if ignore_case:

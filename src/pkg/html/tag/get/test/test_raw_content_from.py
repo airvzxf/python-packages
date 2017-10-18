@@ -71,7 +71,3 @@ class TestPkgHtmlTagGetRawContentFrom(unittest.TestCase):
         actual_text = raw_content_from('div', text)
 
         self.assertEqual(actual_text, expected_text)
-
-
-if __name__ == '__main__':
-    unittest.main()

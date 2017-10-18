@@ -100,7 +100,3 @@ class TestPkgHtmlTagGetAllProperties(unittest.TestCase):
 
         self.assertEqual(second_tag[1][0], 'class')
         self.assertEqual(second_tag[1][1], '2')
-
-
-if __name__ == '__main__':
-    unittest.main()

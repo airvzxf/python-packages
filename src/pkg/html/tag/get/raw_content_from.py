@@ -22,9 +22,6 @@ def raw_content_from(tag=None, text="", ignore_case=True):
 
 
 def __regex_html_tag_started_at(tag=None, text="", ignore_case=True):
-    if tag is None:
-        return
-
     flags = re.RegexFlag.DOTALL
 
     if ignore_case:

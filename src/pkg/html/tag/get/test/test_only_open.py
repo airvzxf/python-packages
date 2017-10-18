@@ -31,7 +31,3 @@ class TestPkgHtmlTagGetOnlyOpen(unittest.TestCase):
         self.assertEqual(tags[0], '<div id="a">')
         self.assertEqual(tags[1], "<article class='b'>")
         self.assertEqual(tags[2], "<span>")
-
-
-if __name__ == '__main__':
-    unittest.main()
