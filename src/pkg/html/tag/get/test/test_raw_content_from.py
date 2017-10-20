@@ -4,7 +4,7 @@
 
 import unittest
 
-from src.pkg.html.tag.get.raw_content_from import raw_content_from
+from pkg.html.tag.get.raw_content_from import raw_content_from
 
 
 class TestPkgHtmlTagGetRawContentFrom(unittest.TestCase):
