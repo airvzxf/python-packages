@@ -4,7 +4,7 @@
 
 import unittest
 
-from src.pkg.html.tag.get.only_open import only_open
+from html.tag.get.only_open import only_open
 
 
 class TestPkgHtmlTagGetOnlyOpen(unittest.TestCase):

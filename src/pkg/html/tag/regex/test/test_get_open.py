@@ -4,7 +4,7 @@
 
 import unittest
 
-from src.pkg.html.tag.regex.get_open import get_open
+from pkg.html.tag.regex.get_open import get_open
 
 
 class TestPkgHtmlTagRegexGetOpen(unittest.TestCase):

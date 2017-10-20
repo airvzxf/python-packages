@@ -2,3 +2,5 @@
 # -*- coding: UTF-8 -*-
 
 """Module: HTML"""
+
+from . import tag

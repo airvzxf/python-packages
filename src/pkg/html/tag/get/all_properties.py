@@ -4,8 +4,8 @@
 
 import re
 
-from src.pkg.html.tag.regex.get_open import get_open as get_opened_tag
-from src.pkg.html.tag.regex.get_properties import get_properties
+from pkg.html.tag.regex.get_open import get_open as get_opened_tag
+from pkg.html.tag.regex.get_properties import get_properties
 
 
 def all_properties(tag=None, text="", trim=True):

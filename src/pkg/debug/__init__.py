@@ -2,3 +2,5 @@
 # -*- coding: UTF-8 -*-
 
 """Debug packages."""
+
+from . import method

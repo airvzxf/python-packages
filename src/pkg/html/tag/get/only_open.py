@@ -4,7 +4,7 @@
 
 import re
 
-from src.pkg.html.tag.regex.get_open import get_open as get_opened_tag
+from pkg.html.tag.regex.get_open import get_open as get_opened_tag
 
 
 def only_open(tag='', text=""):

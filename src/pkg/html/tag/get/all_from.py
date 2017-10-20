@@ -15,8 +15,8 @@ Example: all_from(tag=div, text=html_code)
 
 import re
 
-from src.pkg.html.tag.regex.get_close import get_close as get_closed_tag
-from src.pkg.html.tag.regex.get_open import get_open as get_opened_tag
+from pkg.html.tag.regex.get_close import get_close as get_closed_tag
+from pkg.html.tag.regex.get_open import get_open as get_opened_tag
 
 
 def all_from(tag=None, text="", ignore_case=True, get_only_content_inside=False):

@@ -4,7 +4,7 @@
 
 import unittest
 
-from src.pkg.html.tag.get.all_properties import all_properties
+from pkg.html.tag.get.all_properties import all_properties
 
 
 class TestPkgHtmlTagGetAllProperties(unittest.TestCase):

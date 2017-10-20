@@ -4,7 +4,7 @@
 
 import unittest
 
-from src.pkg.html.tag.regex.get_close import get_close
+from pkg.html.tag.regex.get_close import get_close
 
 
 class TestPkgHtmlTagRegexGetClose(unittest.TestCase):

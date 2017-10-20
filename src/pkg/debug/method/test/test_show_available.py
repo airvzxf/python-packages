@@ -7,7 +7,7 @@ import re
 import unittest
 from io import StringIO
 
-from src.pkg.debug.method.show_available import show_available
+from pkg.debug.method.show_available import show_available
 
 
 class TestPkgDebugMethodShowAvailable(unittest.TestCase):

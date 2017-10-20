@@ -4,7 +4,7 @@
 
 import unittest
 
-from src.pkg.html.tag.get.all_from import all_from
+from pkg.html.tag.get.all_from import all_from
 
 
 class TestPkgHtmlTagAllFrom(unittest.TestCase):

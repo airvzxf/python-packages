@@ -4,7 +4,7 @@
 
 import re
 
-from src.pkg.html.tag.regex.get_raw_open_close import get_raw_open_close as get_raw_opened_closed_tag
+from pkg.html.tag.regex.get_raw_open_close import get_raw_open_close as get_raw_opened_closed_tag
 
 
 def raw_content_from(tag=None, text="", ignore_case=True):

@@ -4,7 +4,7 @@
 
 import unittest
 
-from src.pkg.html.tag.regex.get_properties import get_properties
+from html.tag.regex.get_properties import get_properties
 
 
 class TestPkgHtmlTagRegexGetProperties(unittest.TestCase):
