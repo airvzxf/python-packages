@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+
 """Test case for show methods when you need debug."""
 
 import contextlib

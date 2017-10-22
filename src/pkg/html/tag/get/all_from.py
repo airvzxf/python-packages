@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+
 """Search all HTML content inside of specific tag.
 
 Cases:

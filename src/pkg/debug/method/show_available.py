@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+
 """Print all the methods, and also the available methods in a specific object."""
 
 

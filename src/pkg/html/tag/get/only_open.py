@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+
 """Search all HTML tags which start with a specific opened tag."""
 
 import re

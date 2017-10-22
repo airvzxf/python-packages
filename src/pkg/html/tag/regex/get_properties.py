@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+
 """Returns the string pattern for search properties inside of the HTML tag."""
 
 

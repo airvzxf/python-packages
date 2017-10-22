@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+
 """Test case for return the RegEx pattern to find all properties inside of the HTML tag."""
 
 import unittest

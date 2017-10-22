@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+
 """Get get all properties inside of the HTML tag."""
 
 import re

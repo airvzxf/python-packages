@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+
 """Test case for search all tags from HTML code."""
 
 import unittest

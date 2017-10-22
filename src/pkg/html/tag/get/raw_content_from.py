@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+
 """Search a specific opened HTML tag and all the code inside until the last closed tag."""
 
 import re
