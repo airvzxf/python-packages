@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-"""Module: HTTP"""
+"""Module: HTTP protocol."""
 
-from . import get
+from . import web_page

@@ -3,4 +3,3 @@
 
 """Module: Get web page from http protocol."""
 
-# from . import tag
