@@ -5,3 +5,4 @@
 
 from . import debug
 from . import html
+from . import http
