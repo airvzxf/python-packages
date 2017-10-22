@@ -7,6 +7,7 @@ Search all HTML tags which start with a specific opened tag.
 
 import re
 
+from pkg.html.tag.get.helper_regex_flags import helper_regex_flags
 from pkg.html.tag.regex.get_open import get_open as get_opened_tag
 
 
@@ -16,15 +17,13 @@ def only_open(tag='', text="", ignore_case=True):
 
     :param tag: HTML tag like div, article, body, etc., looks like <div, <body.
     :param text: The HTML source code.
+    :param ignore_case: If is true, it should be search in lowercase and uppercase.
     :return: List with the matched tags.
     """
     if tag is None:
         return
 
-    flags = re.RegexFlag.DOTALL
-
-    if ignore_case:
-        flags = re.RegexFlag.DOTALL | re.RegexFlag.IGNORECASE
+    flags = helper_regex_flags(ignore_case=ignore_case)
 
     regex_tag = re.compile(get_opened_tag(tag), flags)
 

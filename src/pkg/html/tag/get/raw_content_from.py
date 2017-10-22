@@ -7,6 +7,7 @@ Search a specific opened HTML tag and all the code inside until the last closed 
 
 import re
 
+from pkg.html.tag.get.helper_regex_flags import helper_regex_flags
 from pkg.html.tag.regex.get_raw_open_close import get_raw_open_close as get_raw_opened_closed_tag
 
 
@@ -22,10 +23,7 @@ def raw_content_from(tag=None, text="", ignore_case=True):
     if tag is None:
         return
 
-    flags = re.RegexFlag.DOTALL
-
-    if ignore_case:
-        flags = re.RegexFlag.DOTALL | re.RegexFlag.IGNORECASE
+    flags = helper_regex_flags(ignore_case=ignore_case)
 
     pattern_get_from_tag = re.compile(get_raw_opened_closed_tag(tag), flags)
 
