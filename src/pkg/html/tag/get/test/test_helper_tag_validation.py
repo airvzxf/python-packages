@@ -2,25 +2,25 @@
 # -*- coding: UTF-8 -*-
 
 """
-Test the helper module which return a regex flag based on parameters.
+Test the helper module which validate the tag.
 """
 
 from re import DOTALL, IGNORECASE
 from unittest import TestCase
 
-from pkg.html.tag.get.helper_regex_flags import helper_regex_flags
+from pkg.html.tag.get.helper_tag_validation import helper_tag_validation
 
 
-class TestPkgHtmlTagGetHelperRegExFlags(TestCase):
+class TestPkgHtmlTagGetHelperTagValidation(TestCase):
     """
-    Test class for match the returned flags based on parameters.
+    Test class for validate the tags.
     """
 
     def test_return_dot_all_flag(self):
         """
         Match the returned flag with the Dot All flag.
         """
-        flags = helper_regex_flags()
+        flags = helper_tag_validation()
 
         self.assertEqual(DOTALL, flags)
 
@@ -28,6 +28,6 @@ class TestPkgHtmlTagGetHelperRegExFlags(TestCase):
         """
         Match the returned flag with the Dot All and Ignore Case flag.
         """
-        flags = helper_regex_flags(ignore_case=True)
+        flags = helper_tag_validation(ignore_case=True)
 
         self.assertEqual(DOTALL | IGNORECASE, flags)

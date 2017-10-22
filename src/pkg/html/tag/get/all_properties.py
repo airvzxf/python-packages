@@ -7,7 +7,7 @@ Get get all properties inside of the HTML tag.
 
 import re
 
-from pkg.html.tag.get.helper_regex_flags import helper_regex_flags
+from pkg.html.tag.get.helper_tag_validation import helper_tag_validation
 from pkg.html.tag.regex.get_open import get_open as get_opened_tag
 from pkg.html.tag.regex.get_properties import get_properties
 
@@ -25,7 +25,7 @@ def all_properties(tag=None, text="", trim=True, ignore_case=True):
     if tag is None:
         return
 
-    flags = helper_regex_flags(ignore_case=ignore_case)
+    flags = helper_tag_validation(ignore_case=ignore_case)
 
     regex_tag = re.compile(get_opened_tag(tag), flags)
     regex_properties = re.compile(get_properties(trim), flags)
