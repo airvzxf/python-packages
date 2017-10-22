@@ -36,6 +36,27 @@ class TestPkgHtmlTagGetAllProperties(TestCase):
         self.assertEqual(first_tag[1][0], 'class')
         self.assertEqual(first_tag[1][1], 'b')
 
+    def test_extract_all_properties_with_one_simple_tag_and_ignore_case(self):
+        """
+        Extract properties for a simple html tag.
+        """
+        properties = all_properties(tag='dIv', text='''<div id="a" class='b'>Hello</div>''', ignore_case=True)
+        first_tag = properties[0]
+
+        self.assertEqual(first_tag[0][0], 'id')
+        self.assertEqual(first_tag[0][1], 'a')
+
+        self.assertEqual(first_tag[1][0], 'class')
+        self.assertEqual(first_tag[1][1], 'b')
+
+    def test_extract_all_properties_with_one_simple_tag_and_not_ignore_case(self):
+        """
+        Extract properties for a simple html tag.
+        """
+        properties = all_properties(tag='dIv', text='''<div id="a" class='b'>Hello</div>''', ignore_case=False)
+
+        self.assertEqual([], properties)
+
     def test_if_the_property_start_with_double_quotes_it_accept_single_quotes_and_inversely(self):
         """
         Extract properties for a simple html tag.

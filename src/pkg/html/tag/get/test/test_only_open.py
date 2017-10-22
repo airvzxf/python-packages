@@ -32,6 +32,23 @@ class TestPkgHtmlTagGetOnlyOpen(TestCase):
         self.assertEqual(1, len(tags))
         self.assertEqual(tags[0], "<article class='b'>")
 
+    def test_extract_specific_tag_and_ignore_case(self):
+        """
+        Extract tags and check the properties.
+        """
+        tags = only_open('aRtIcLe', '''<div id="a">a.1</div> <article class='b'>b.1</article>''', ignore_case=True)
+
+        self.assertEqual(1, len(tags))
+        self.assertEqual(tags[0], "<article class='b'>")
+
+    def test_extract_specific_tag_and_not_ignore_case(self):
+        """
+        Extract tags and check the properties.
+        """
+        tags = only_open('aRtIcLe', '''<div id="a">a.1</div> <article class='b'>b.1</article>''', ignore_case=False)
+
+        self.assertEqual([], tags)
+
     def test_extract_all_tags(self):
         """
         Extract tags and check the properties.

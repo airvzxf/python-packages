@@ -11,7 +11,7 @@ from pkg.html.tag.regex.get_open import get_open as get_opened_tag
 from pkg.html.tag.regex.get_properties import get_properties
 
 
-def all_properties(tag=None, text="", trim=True):
+def all_properties(tag=None, text="", trim=True, ignore_case=True):
     """
     Get get all properties inside of the HTML tag.
 
@@ -24,6 +24,9 @@ def all_properties(tag=None, text="", trim=True):
         return
 
     flags = re.RegexFlag.DOTALL
+
+    if ignore_case:
+        flags = re.RegexFlag.DOTALL | re.RegexFlag.IGNORECASE
 
     regex_tag = re.compile(get_opened_tag(tag), flags)
     regex_properties = re.compile(get_properties(trim), flags)

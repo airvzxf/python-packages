@@ -10,7 +10,7 @@ import re
 from pkg.html.tag.regex.get_open import get_open as get_opened_tag
 
 
-def only_open(tag='', text=""):
+def only_open(tag='', text="", ignore_case=True):
     """
     Search HTML tags starting with a specific opened tag.
 
@@ -22,6 +22,9 @@ def only_open(tag='', text=""):
         return
 
     flags = re.RegexFlag.DOTALL
+
+    if ignore_case:
+        flags = re.RegexFlag.DOTALL | re.RegexFlag.IGNORECASE
 
     regex_tag = re.compile(get_opened_tag(tag), flags)
 
