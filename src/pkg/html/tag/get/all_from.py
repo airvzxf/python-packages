@@ -32,7 +32,7 @@ def all_from(tag=None, text="", ignore_case=True, get_only_content_inside=False)
     otherwise return all included the tag and its properties.
     :return: List with the matched tags.
     """
-    if tag is None or tag is '':
+    if tag is None:
         return
 
     flags = re.RegexFlag.DOTALL

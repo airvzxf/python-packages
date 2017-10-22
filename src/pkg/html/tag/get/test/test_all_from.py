@@ -23,14 +23,6 @@ class TestPkgHtmlTagAllFrom(TestCase):
 
         self.assertIsNone(actual_text)
 
-    def test_when_send_empty_returns_none(self):
-        """
-        Returns None.
-        """
-        actual_text = all_from(tag='')
-
-        self.assertIsNone(actual_text)
-
     def test_when_sent_html_code_ignore_case(self):
         """
         Returns the code inside of the tag <dIV...>...</dIV>.
