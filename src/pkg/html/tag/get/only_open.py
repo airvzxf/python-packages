@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-"""Search all HTML tags which start with a specific opened tag."""
+"""
+Search all HTML tags which start with a specific opened tag.
+"""
 
 import re
 
@@ -9,7 +11,8 @@ from pkg.html.tag.regex.get_open import get_open as get_opened_tag
 
 
 def only_open(tag='', text=""):
-    """Search HTML tags starting with a specific opened tag.
+    """
+    Search HTML tags starting with a specific opened tag.
 
     :param tag: HTML tag like div, article, body, etc., looks like <div, <body.
     :param text: The HTML source code.

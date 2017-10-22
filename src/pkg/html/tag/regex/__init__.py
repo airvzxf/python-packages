@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-"""Module about regEx tags patterns in HTML"""
+"""
+Module about regEx tags patterns in HTML.
+"""
 
 from . import get_close
 from . import get_open

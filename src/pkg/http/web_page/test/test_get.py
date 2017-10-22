@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-"""Test case for get the web page from the http protocol."""
+"""
+Test case for get the web page from the http protocol.
+"""
 
 from unittest import TestCase
 
@@ -13,16 +15,23 @@ responses = Responses('requests.packages.urllib3')
 
 
 class TestPkgHttpWebPageGet(TestCase):
-    """Test the get request from web page with the http protocol."""
+    """
+    Test the get request from web page with the http protocol.
+    """
 
     def test_if_url_is_none_return_noe(self):
-        """Return None if the parameter url is none."""
+        """
+        Return None if the parameter url is none.
+        """
         result = get()
 
         self.assertIsNone(result)
 
     @responses.activate
     def test_the_request_parameters(self):
+        """
+        Match the request parameters in the HTTP request.
+        """
         responses.add(method='GET', url='/')
 
         get(url='http://www.fake_url.com')
@@ -37,6 +46,9 @@ class TestPkgHttpWebPageGet(TestCase):
 
     @responses.activate
     def test_the_response_match_with_the_returned_dictionary(self):
+        """
+        Match the response dictionary from the HTTP request.
+        """
         responses.add(
             method='GET',
             url='/',

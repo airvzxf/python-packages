@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-"""Search a specific opened HTML tag and all the code inside until the last closed tag."""
+"""
+Search a specific opened HTML tag and all the code inside until the last closed tag.
+"""
 
 import re
 
@@ -9,7 +11,8 @@ from pkg.html.tag.regex.get_raw_open_close import get_raw_open_close as get_raw_
 
 
 def raw_content_from(tag=None, text="", ignore_case=True):
-    """Search from opened HTML tag until the last closed tag.
+    """
+    Search from opened HTML tag until the last closed tag.
 
     :param tag: HTML tag like div, article, body, etc., looks like <div, <body.
     :param text: The HTML source code.
@@ -19,10 +22,6 @@ def raw_content_from(tag=None, text="", ignore_case=True):
     if tag is None:
         return
 
-    return __regex_html_tag_started_at(tag, text, ignore_case)
-
-
-def __regex_html_tag_started_at(tag=None, text="", ignore_case=True):
     flags = re.RegexFlag.DOTALL
 
     if ignore_case:

@@ -1,11 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-"""Print all the methods, and also the available methods in a specific object."""
+"""
+Print all the methods, and also the available methods in a specific object.
+"""
 
 
 def show_available(main_object=None, print_all=True, print_available=True):
-    """Show available methods for an object which is debugging.
+    """
+    Show available methods for an object which is debugging.
 
     This function NOT return any value but it print in the console the methods
 

@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-"""Test case for show methods when you need debug."""
+"""
+Test case for show methods when you need debug.
+"""
 
 import contextlib
 import re
@@ -12,16 +14,25 @@ from pkg.debug.method.show_available import show_available
 
 
 class TestPkgDebugMethodShowAvailable(TestCase):
-    """Tests for show methods in debug mode"""
+    """
+    Tests for show methods in debug mode.
+    """
 
     def __init__(self, *args, **kwargs):
+        """
+        When this test is constructed always check if exists the exception catch in the production code.
+        :param args: These parameters come from super class.
+        :param kwargs: These parameters come from super class.
+        """
         super(TestPkgDebugMethodShowAvailable, self).__init__(*args, **kwargs)
+
         _catch_any_exception_error(self, main_object={})
         _catch_any_exception_error(self, should_fail=True)
 
     def test_when_main_object_is_none_not_execute_the_statements(self):
-        """"Not print anything in the console"""
-
+        """"
+        Not print anything in the console.
+        """
         temp_stdout = StringIO()
         with contextlib.redirect_stdout(temp_stdout):
             show_available(print_all=True, print_available=True)
@@ -30,10 +41,11 @@ class TestPkgDebugMethodShowAvailable(TestCase):
         self.assertEqual('', output)
 
     def test_show_all_but_not_show_available(self):
-        """Catch the print output"""
+        """
+        Catch the print output.
+        """
         # Uncomment this to show the values in the console
         # show_available(main_object=[], show_all=True, show_available=False)
-
         temp_stdout = StringIO()
         with contextlib.redirect_stdout(temp_stdout):
             show_available(main_object=[], print_all=True, print_available=False)
@@ -51,10 +63,11 @@ class TestPkgDebugMethodShowAvailable(TestCase):
         self.assertEqual(expected_output, output)
 
     def test_show_available_but_not_show_all(self):
-        """Catch the print output"""
+        """
+        Catch the print output.
+        """
         # Uncomment this to show the values in the console
         # show_available(main_object=[], show_all=False, show_available=True)
-
         temp_stdout = StringIO()
         with contextlib.redirect_stdout(temp_stdout):
             show_available(main_object=[], print_all=False, print_available=True)
@@ -80,6 +93,13 @@ class TestPkgDebugMethodShowAvailable(TestCase):
 
 
 def _catch_any_exception_error(self, main_object=None, should_fail=False):
+    """
+    Private method which raise an exception to check if the catch exception is implemented in the production code.
+
+    :param self: Self
+    :param main_object: Send any object like None, [], {} Person, etc.
+    :param should_fail: It force to raise an exception at the start.
+    """
     # noinspection PyBroadException
     try:
         if should_fail:
@@ -97,6 +117,13 @@ def _catch_any_exception_error(self, main_object=None, should_fail=False):
 
 
 def _output_formatter(stdout_string=None):
+    """
+    When print some object it returns the memory address then this method replace the memory address for 0x0
+    it means that's always match.
+
+    :param stdout_string: StringIO(), IO string which means the print output.
+    :return: String with all memory address replaced for 0x0.
+    """
     get_value = stdout_string.getvalue().strip()
     output = re.sub(r"0x\w+", "0x0", get_value)
 

@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-"""Debug packages."""
+"""
+Debug packages.
+"""
 
 from . import method

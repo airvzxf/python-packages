@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-"""Search all HTML content inside of specific tag.
+"""
+Search all HTML content inside of specific tag.
 
 Cases:
 - If exists tags inside of the main tag it only return the principal tag.
@@ -21,7 +22,8 @@ from pkg.html.tag.regex.get_open import get_open as get_opened_tag
 
 
 def all_from(tag=None, text="", ignore_case=True, get_only_content_inside=False):
-    """Search a specific tag in all HTML code and return a list of occurrences.
+    """
+    Search a specific tag in all HTML code and return a list of occurrences.
 
     :param tag: HTML tag like div, article, body, etc., looks like <div, <body.
     :param text: The HTML source code.
@@ -33,10 +35,6 @@ def all_from(tag=None, text="", ignore_case=True, get_only_content_inside=False)
     if tag is None or tag is '':
         return
 
-    return __search_html_tags(tag, text, ignore_case, get_only_content_inside)
-
-
-def __search_html_tags(tag=None, text="", ignore_case=True, get_content_inside=False):
     flags = re.RegexFlag.DOTALL
 
     if ignore_case:
@@ -62,7 +60,7 @@ def __search_html_tags(tag=None, text="", ignore_case=True, get_content_inside=F
 
     for _, tag in tag_matrix:
         if tags_opened == 0 and is_a_new_tag:
-            if get_content_inside:
+            if get_only_content_inside:
                 text_star_at = tag.get('end_at')
             else:
                 text_star_at = tag.get('start_at')
@@ -71,7 +69,7 @@ def __search_html_tags(tag=None, text="", ignore_case=True, get_content_inside=F
         tags_opened += tag.get('value')
 
         if tags_opened == 0:
-            if get_content_inside:
+            if get_only_content_inside:
                 tags_found.append(text[text_star_at: tag.get('start_at')].rstrip())
             else:
                 tags_found.append(text[text_star_at: tag.get('end_at')])

@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-"""Get get all properties inside of the HTML tag."""
+"""
+Get get all properties inside of the HTML tag.
+"""
 
 import re
 
@@ -10,7 +12,8 @@ from pkg.html.tag.regex.get_properties import get_properties
 
 
 def all_properties(tag=None, text="", trim=True):
-    """Get get all properties inside of the HTML tag.
+    """
+    Get get all properties inside of the HTML tag.
 
     :param tag: HTML tag like div, article, body, etc., looks like <div, <body.
     :param text: The HTML source code.
