@@ -3,12 +3,12 @@
 
 """Test case for get raw content from HTML tag."""
 
-import unittest
+from unittest import TestCase
 
 from pkg.html.tag.get.raw_content_from import raw_content_from
 
 
-class TestPkgHtmlTagGetRawContentFrom(unittest.TestCase):
+class TestPkgHtmlTagGetRawContentFrom(TestCase):
     """Tests for extract test tags"""
 
     def test_when_the_tag_param_is_nil(self):

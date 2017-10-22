@@ -3,12 +3,12 @@
 
 """Test case for return the RegEx pattern to find all properties inside of the HTML tag."""
 
-import unittest
+from unittest import TestCase
 
 from pkg.html.tag.regex.get_properties import get_properties
 
 
-class TestPkgHtmlTagRegexGetProperties(unittest.TestCase):
+class TestPkgHtmlTagRegexGetProperties(TestCase):
     """Test the regex patterns for properties"""
 
     def test_return_the_regex_string(self):

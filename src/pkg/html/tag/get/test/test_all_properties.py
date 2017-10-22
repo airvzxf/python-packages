@@ -3,12 +3,12 @@
 
 """Test case for get all properties inside of the HTML tag."""
 
-import unittest
+from unittest import TestCase
 
 from pkg.html.tag.get.all_properties import all_properties
 
 
-class TestPkgHtmlTagGetAllProperties(unittest.TestCase):
+class TestPkgHtmlTagGetAllProperties(TestCase):
     """Tests for extract properties from the tags"""
 
     def test_when_tag_is_not_send_return_none(self):

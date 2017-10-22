@@ -3,12 +3,12 @@
 
 """Test case for get only opened HTML tags which start with a specific tag."""
 
-import unittest
+from unittest import TestCase
 
 from pkg.html.tag.get.only_open import only_open
 
 
-class TestPkgHtmlTagGetOnlyOpen(unittest.TestCase):
+class TestPkgHtmlTagGetOnlyOpen(TestCase):
     """Tests for extract only opened tags"""
 
     def test_when_tag_is_none_return_none(self):

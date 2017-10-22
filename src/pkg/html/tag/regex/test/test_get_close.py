@@ -3,12 +3,12 @@
 
 """Test case for get all the closed HTML tags."""
 
-import unittest
+from unittest import TestCase
 
 from pkg.html.tag.regex.get_close import get_close
 
 
-class TestPkgHtmlTagRegexGetClose(unittest.TestCase):
+class TestPkgHtmlTagRegexGetClose(TestCase):
     """Test the regex patterns for tags"""
 
     def test_if_sent_no_parameters_return_empty(self):

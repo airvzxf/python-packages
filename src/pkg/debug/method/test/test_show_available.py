@@ -5,13 +5,13 @@
 
 import contextlib
 import re
-import unittest
 from io import StringIO
+from unittest import TestCase
 
 from pkg.debug.method.show_available import show_available
 
 
-class TestPkgDebugMethodShowAvailable(unittest.TestCase):
+class TestPkgDebugMethodShowAvailable(TestCase):
     """Tests for show methods in debug mode"""
 
     def __init__(self, *args, **kwargs):

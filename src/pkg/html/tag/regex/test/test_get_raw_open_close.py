@@ -3,12 +3,12 @@
 
 """Test case for get the raw content inside of a specific HTML tag."""
 
-import unittest
+from unittest import TestCase
 
 from pkg.html.tag.regex.get_raw_open_close import get_raw_open_close
 
 
-class TestPkgHtmlTagRegexGetRawOpenClose(unittest.TestCase):
+class TestPkgHtmlTagRegexGetRawOpenClose(TestCase):
     """Test the regex patterns for tags"""
 
     def test_if_sent_no_parameters_return_empty(self):

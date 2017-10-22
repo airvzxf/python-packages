@@ -3,12 +3,12 @@
 
 """Test case for search all tags from HTML code."""
 
-import unittest
+from unittest import TestCase
 
 from pkg.html.tag.get.all_from import all_from
 
 
-class TestPkgHtmlTagAllFrom(unittest.TestCase):
+class TestPkgHtmlTagAllFrom(TestCase):
     """Tests for extract test tags"""
 
     def test_when_send_none_returns_none(self):
