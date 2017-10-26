@@ -17,7 +17,6 @@ Example: all_from(tag=div, text=html_code)
 
 import re
 
-from pkg.html.tag.get.helper_tag_validation import helper_tag_validation
 from pkg.html.tag.regex.get_close import get_close as get_closed_tag
 from pkg.html.tag.regex.get_open import get_open as get_opened_tag
 
@@ -33,10 +32,13 @@ def all_from(tag=None, text="", ignore_case=True, get_only_content_inside=False)
     otherwise return all included the tag and its properties.
     :return: List with the matched tags.
     """
-    try:
-        flags = helper_tag_validation(tag=tag, ignore_case=ignore_case)
-    except AttributeError:
+    if tag is None:
         return
+
+    flags = re.RegexFlag.DOTALL
+
+    if ignore_case:
+        flags = re.RegexFlag.DOTALL | re.RegexFlag.IGNORECASE
 
     regex_start_tag = re.compile(get_opened_tag(tag), flags)
     regex_end_tag = re.compile(get_closed_tag(tag), flags)

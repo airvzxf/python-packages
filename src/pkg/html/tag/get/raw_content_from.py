@@ -7,7 +7,6 @@ Search a specific opened HTML tag and all the code inside until the last closed 
 
 import re
 
-from pkg.html.tag.get.helper_tag_validation import helper_tag_validation
 from pkg.html.tag.regex.get_raw_open_close import get_raw_open_close as get_raw_opened_closed_tag
 
 
@@ -20,10 +19,13 @@ def raw_content_from(tag=None, text="", ignore_case=True):
     :param ignore_case: If is true, it should be search in lowercase and uppercase.
     :return: A string with the match.
     """
-    try:
-        flags = helper_tag_validation(tag=tag, ignore_case=ignore_case)
-    except AttributeError:
+    if tag is None:
         return
+
+    flags = re.RegexFlag.DOTALL
+
+    if ignore_case:
+        flags = re.RegexFlag.DOTALL | re.RegexFlag.IGNORECASE
 
     pattern_get_from_tag = re.compile(get_raw_opened_closed_tag(tag), flags)
 

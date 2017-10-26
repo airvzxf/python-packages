@@ -7,7 +7,6 @@ Get get all properties inside of the HTML tag.
 
 import re
 
-from pkg.html.tag.get.helper_tag_validation import helper_tag_validation
 from pkg.html.tag.regex.get_open import get_open as get_opened_tag
 from pkg.html.tag.regex.get_properties import get_properties
 
@@ -19,13 +18,15 @@ def all_properties(tag=None, text="", trim=True, ignore_case=True):
     :param tag: HTML tag like div, article, body, etc., looks like <div, <body.
     :param text: The HTML source code.
     :param trim: If is true, it delete all the white spaces before and after the text.
-    :param ignore_case: If is true, it should be search in lowercase and uppercase.
     :return: List with the matched tags.
     """
-    try:
-        flags = helper_tag_validation(tag=tag, ignore_case=ignore_case)
-    except AttributeError:
+    if tag is None:
         return
+
+    flags = re.RegexFlag.DOTALL
+
+    if ignore_case:
+        flags = re.RegexFlag.DOTALL | re.RegexFlag.IGNORECASE
 
     regex_tag = re.compile(get_opened_tag(tag), flags)
     regex_properties = re.compile(get_properties(trim), flags)
