@@ -20,10 +20,10 @@ def only_open(tag='', text="", ignore_case=True):
     :param ignore_case: If is true, it should be search in lowercase and uppercase.
     :return: List with the matched tags.
     """
-    if tag is None:
+    try:
+        flags = helper_tag_validation(tag=tag, ignore_case=ignore_case)
+    except AttributeError:
         return
-
-    flags = helper_tag_validation(ignore_case=ignore_case)
 
     regex_tag = re.compile(get_opened_tag(tag), flags)
 

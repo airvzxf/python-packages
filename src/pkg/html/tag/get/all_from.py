@@ -33,10 +33,10 @@ def all_from(tag=None, text="", ignore_case=True, get_only_content_inside=False)
     otherwise return all included the tag and its properties.
     :return: List with the matched tags.
     """
-    if tag is None:
+    try:
+        flags = helper_tag_validation(tag=tag, ignore_case=ignore_case)
+    except AttributeError:
         return
-
-    flags = helper_tag_validation(ignore_case=ignore_case)
 
     regex_start_tag = re.compile(get_opened_tag(tag), flags)
     regex_end_tag = re.compile(get_closed_tag(tag), flags)

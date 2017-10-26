@@ -20,7 +20,7 @@ class TestPkgHtmlTagGetHelperTagValidation(TestCase):
         """
         Match the returned flag with the Dot All flag.
         """
-        flags = helper_tag_validation()
+        flags = helper_tag_validation(tag='')
 
         self.assertEqual(DOTALL, flags)
 
@@ -28,6 +28,6 @@ class TestPkgHtmlTagGetHelperTagValidation(TestCase):
         """
         Match the returned flag with the Dot All and Ignore Case flag.
         """
-        flags = helper_tag_validation(ignore_case=True)
+        flags = helper_tag_validation(tag='', ignore_case=True)
 
         self.assertEqual(DOTALL | IGNORECASE, flags)

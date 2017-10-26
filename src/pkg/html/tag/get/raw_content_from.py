@@ -20,10 +20,10 @@ def raw_content_from(tag=None, text="", ignore_case=True):
     :param ignore_case: If is true, it should be search in lowercase and uppercase.
     :return: A string with the match.
     """
-    if tag is None:
+    try:
+        flags = helper_tag_validation(tag=tag, ignore_case=ignore_case)
+    except AttributeError:
         return
-
-    flags = helper_tag_validation(ignore_case=ignore_case)
 
     pattern_get_from_tag = re.compile(get_raw_opened_closed_tag(tag), flags)
 
