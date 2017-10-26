@@ -15,19 +15,19 @@ class TestPkgHtmlTagGetOnlyOpen(TestCase):
     Tests for extract only opened tags.
     """
 
-    def test_when_tag_is_none_return_none(self):
+    def test_when_tag_is_none_return_empty(self):
         """
-        Returns nil if we don't send the tag.
+        Returns an emtpy list if we don't send the tag.
         """
-        expected_property = only_open(None)
+        expected_property = only_open()
 
-        self.assertIsNone(expected_property)
+        self.assertEqual([], expected_property)
 
     def test_extract_specific_tag(self):
         """
         Extract tags and check the properties.
         """
-        tags = only_open('article', '''<div id="a">a.1</div> <article class='b'>b.1</article>''')
+        tags = only_open(tag='article', text='''<div id="a">a.1</div> <article class='b'>b.1</article>''')
 
         self.assertEqual(1, len(tags))
         self.assertEqual(tags[0], "<article class='b'>")
@@ -36,7 +36,9 @@ class TestPkgHtmlTagGetOnlyOpen(TestCase):
         """
         Extract tags and check the properties.
         """
-        tags = only_open('aRtIcLe', '''<div id="a">a.1</div> <article class='b'>b.1</article>''', ignore_case=True)
+        tags = only_open(tag='aRtIcLe',
+                         text='''<div id="a">a.1</div> <article class='b'>b.1</article>''',
+                         ignore_case=True)
 
         self.assertEqual(1, len(tags))
         self.assertEqual(tags[0], "<article class='b'>")
@@ -45,7 +47,9 @@ class TestPkgHtmlTagGetOnlyOpen(TestCase):
         """
         Extract tags and check the properties.
         """
-        tags = only_open('aRtIcLe', '''<div id="a">a.1</div> <article class='b'>b.1</article>''', ignore_case=False)
+        tags = only_open(tag='aRtIcLe',
+                         text='''<div id="a">a.1</div> <article class='b'>b.1</article>''',
+                         ignore_case=False)
 
         self.assertEqual([], tags)
 

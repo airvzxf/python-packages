@@ -25,7 +25,7 @@ class TestPkgHtmlTagGetRawContentFrom(TestCase):
         """
         Returns the code inside of the tag <div...>...</div>.
         """
-        actual_text = raw_content_from('div', '<div name="test">This is a test</div>')
+        actual_text = raw_content_from(tag='div', text='<div name="test">This is a test</div>')
         expected_text = 'This is a test'
 
         self.assertEqual(actual_text, expected_text)
@@ -34,7 +34,7 @@ class TestPkgHtmlTagGetRawContentFrom(TestCase):
         """
         Returns the code inside of the tag <dIV...>...</dIV>.
         """
-        actual_text = raw_content_from('div', '<dIV name="test">This is a test</dIV>')
+        actual_text = raw_content_from(tag='div', text='<dIV name="test">This is a test</dIV>')
         expected_text = 'This is a test'
 
         self.assertEqual(actual_text, expected_text)
@@ -43,7 +43,7 @@ class TestPkgHtmlTagGetRawContentFrom(TestCase):
         """
         Returns None.
         """
-        actual_text = raw_content_from('div', '<dIV name="test">This is a test</dIV>', False)
+        actual_text = raw_content_from(tag='div', text='<dIV name="test">This is a test</dIV>', ignore_case=False)
 
         self.assertIsNone(actual_text)
 
@@ -51,7 +51,7 @@ class TestPkgHtmlTagGetRawContentFrom(TestCase):
         """
         Returns None.
         """
-        actual_text = raw_content_from('div', '<span name="test">This is a test</span>')
+        actual_text = raw_content_from(tag='div', text='<span name="test">This is a test</span>')
 
         self.assertIsNone(actual_text)
 
@@ -62,7 +62,7 @@ class TestPkgHtmlTagGetRawContentFrom(TestCase):
         text = '<article><div name="my"><span>My test</span><div name="f"><span>footer<span></div></div></article>'
         expected_text = '<span>My test</span><div name="f"><span>footer<span></div>'
 
-        actual_text = raw_content_from('div', text)
+        actual_text = raw_content_from(tag='div', text=text)
 
         self.assertEqual(actual_text, expected_text)
 

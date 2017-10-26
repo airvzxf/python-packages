@@ -15,13 +15,13 @@ class TestPkgHtmlTagGetAllProperties(TestCase):
     Tests for extract properties from the tags.
     """
 
-    def test_when_tag_is_not_send_return_none(self):
+    def test_when_tag_is_none_return_empty(self):
         """
-        Returns nil if we don't send the tag.
+        Returns an emtpy list if we don't send the tag.
         """
         expected_property = all_properties()
 
-        self.assertIsNone(expected_property)
+        self.assertEqual([], expected_property)
 
     def test_extract_all_properties_with_one_simple_tag(self):
         """

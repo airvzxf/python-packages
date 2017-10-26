@@ -15,19 +15,19 @@ class TestPkgHtmlTagAllFrom(TestCase):
     Tests for extract test tags.
     """
 
-    def test_when_send_none_returns_none(self):
+    def test_when_tag_is_none_return_empty(self):
         """
-        Returns None.
+        Returns an emtpy list if we don't send the tag.
         """
         actual_text = all_from()
 
-        self.assertIsNone(actual_text)
+        self.assertEqual([], actual_text)
 
     def test_when_sent_html_code_ignore_case(self):
         """
         Returns the code inside of the tag <dIV...>...</dIV>.
         """
-        actual_text = all_from('div', '<dIV name="test">This is a test</dIV>')[0]
+        actual_text = all_from(tag='div', text='<dIV name="test">This is a test</dIV>')[0]
         expected_text = '<dIV name="test">This is a test</dIV>'
 
         self.assertEqual(actual_text, expected_text)
@@ -36,7 +36,7 @@ class TestPkgHtmlTagAllFrom(TestCase):
         """
         Returns None.
         """
-        actual_text = all_from('div', '<dIV name="test">This is a test</dIV>', False)
+        actual_text = all_from(tag='div', text='<dIV name="test">This is a test</dIV>', ignore_case=False)
 
         self.assertEqual(0, len(actual_text))
 
@@ -46,7 +46,7 @@ class TestPkgHtmlTagAllFrom(TestCase):
         """
         text, expected_text_1, expected_text_2 = get_two_matches()
 
-        result = all_from('div', text, True)
+        result = all_from(tag='div', text=text, ignore_case=True)
 
         self.assertEqual(2, len(result))
         self.assertEqual(result[0], expected_text_1)
@@ -58,7 +58,7 @@ class TestPkgHtmlTagAllFrom(TestCase):
         """
         text, expected_text_1, expected_text_2 = get_two_matches_and_the_content_inside_of_the_tag()
 
-        result = all_from('div', text, True, True)
+        result = all_from(tag='div', text=text, ignore_case=True, get_only_content_inside=True)
 
         self.assertEqual(2, len(result))
         self.assertEqual(result[0], expected_text_1)
@@ -70,7 +70,7 @@ class TestPkgHtmlTagAllFrom(TestCase):
         """
         text, expected_text_1, expected_text_2, expected_text_3 = get_three_matches()
 
-        result = all_from('article', text, True)
+        result = all_from(tag='article', text=text, ignore_case=True)
 
         self.assertEqual(3, len(result))
         self.assertEqual(result[0], expected_text_1)
@@ -83,7 +83,7 @@ class TestPkgHtmlTagAllFrom(TestCase):
         """
         text, expected_text_1, expected_text_2, expected_text_3 = get_three_matches_and_the_content_inside_of_the_tag()
 
-        result = all_from('article', text, True, True)
+        result = all_from(tag='article', text=text, ignore_case=True, get_only_content_inside=True)
 
         self.assertEqual(3, len(result))
         self.assertEqual(result[0], expected_text_1)

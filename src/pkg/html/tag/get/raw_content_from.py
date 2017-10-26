@@ -19,9 +19,6 @@ def raw_content_from(tag=None, text="", ignore_case=True):
     :param ignore_case: If is true, it should be search in lowercase and uppercase.
     :return: A string with the match.
     """
-    if tag is None:
-        return
-
     flags = re.RegexFlag.DOTALL
 
     if ignore_case:

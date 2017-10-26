@@ -21,9 +21,6 @@ def all_properties(tag=None, text="", trim=True, ignore_case=True):
     :param ignore_case: If is true it should be search in lowercase and uppercase.
     :return: List with the matched tags.
     """
-    if tag is None:
-        return
-
     flags = re.RegexFlag.DOTALL
 
     if ignore_case:

@@ -10,7 +10,7 @@ import re
 from pkg.html.tag.regex.get_open import get_open as get_opened_tag
 
 
-def only_open(tag='', text="", ignore_case=True):
+def only_open(tag=None, text="", ignore_case=True):
     """
     Search HTML tags starting with a specific opened tag.
 
@@ -19,9 +19,6 @@ def only_open(tag='', text="", ignore_case=True):
     :param ignore_case: If is true it should be search in lowercase and uppercase.
     :return: List with the matched tags.
     """
-    if tag is None:
-        return
-
     flags = re.RegexFlag.DOTALL
 
     if ignore_case:
