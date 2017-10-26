@@ -15,19 +15,19 @@ class TestPkgHtmlTagRegexGetOpen(TestCase):
     Test the regex patterns for tags.
     """
 
-    def test_if_sent_none_it_returns_the_same(self):
+    def test_if_sent_none_tag_it_returns_the_regex_without_tag(self):
         """
-        Return nil if we don't send parameters.
-        """
-        expected_string = get_open(None)
-
-        self.assertIsNone(expected_string)
-
-    def test_if_sent_no_parameters_return_empty(self):
-        """
-        Return nil if we don't send parameters.
+        Return a regEx string without tag.
         """
         expected_string = get_open()
+
+        self.assertEqual(r"<[^/]+?(?:\".*?\"|'.*?'|.*?)*?>", expected_string)
+
+    def test_if_sent_empty_tag_it_returns_the_regex_without_tag(self):
+        """
+        Return a regEx string without tag.
+        """
+        expected_string = get_open(tag='')
 
         self.assertEqual(r"<[^/]+?(?:\".*?\"|'.*?'|.*?)*?>", expected_string)
 

@@ -16,6 +16,7 @@ def only_open(tag='', text="", ignore_case=True):
 
     :param tag: HTML tag like div, article, body, etc., looks like <div, <body.
     :param text: The HTML source code.
+    :param ignore_case: If is true it should be search in lowercase and uppercase.
     :return: List with the matched tags.
     """
     if tag is None:

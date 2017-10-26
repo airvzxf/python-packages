@@ -14,6 +14,6 @@ def get_close(tag=None):
     :return: String with the RegEx pattern.
     """
     if tag is None:
-        return
-
-    return r"</{0}[^<]*?>".format(tag)
+        return r"</[^<]*?>"
+    else:
+        return r"</{0}[^<]*?>".format(tag)

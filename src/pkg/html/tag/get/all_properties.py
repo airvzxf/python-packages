@@ -18,6 +18,7 @@ def all_properties(tag=None, text="", trim=True, ignore_case=True):
     :param tag: HTML tag like div, article, body, etc., looks like <div, <body.
     :param text: The HTML source code.
     :param trim: If is true, it delete all the white spaces before and after the text.
+    :param ignore_case: If is true it should be search in lowercase and uppercase.
     :return: List with the matched tags.
     """
     if tag is None:

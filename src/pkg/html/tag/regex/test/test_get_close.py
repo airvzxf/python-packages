@@ -15,13 +15,21 @@ class TestPkgHtmlTagRegexGetClose(TestCase):
     Test the regex patterns for tags.
     """
 
-    def test_if_sent_no_parameters_return_empty(self):
+    def test_if_sent_none_tag_it_returns_the_regex_without_tag(self):
         """
-        Return nil if we don't send parameters.
+        Return a regEx string without tag.
         """
         expected_string = get_close()
 
-        self.assertIsNone(expected_string)
+        self.assertEqual(r"</[^<]*?>", expected_string)
+
+    def test_if_sent_empty_tag_it_returns_the_regex_without_tag(self):
+        """
+        Return a regEx string without tag.
+        """
+        expected_string = get_close(tag='')
+
+        self.assertEqual(r"</[^<]*?>", expected_string)
 
     def test_return_the_regex_string(self):
         """

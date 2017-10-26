@@ -6,7 +6,7 @@ Returns the string pattern for search opened HTML tag.
 """
 
 
-def get_open(tag=''):
+def get_open(tag=None):
     """
     Return RegEx pattern which find all opened HTML tag.
 
@@ -15,10 +15,7 @@ def get_open(tag=''):
     :param tag: HTML tag like div, article, body, etc., looks like <div, <body.
     :return: String with the RegEx pattern.
     """
-    if tag is None:
-        return
-
-    if tag is '':
+    if tag is None or tag is '':
         return r"<[^/]+?(?:\".*?\"|'.*?'|.*?)*?>"
     else:
         return r"<{0}(?:\".*?\"|'.*?'|.*?)*?>".format(tag)
