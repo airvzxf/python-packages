@@ -18,6 +18,7 @@ Example: all_from(tag=div, text=html_code)
 import re
 
 from pkg.html.tag.regex.get_close import get_close as get_closed_tag
+from pkg.html.tag.regex.get_compilation_flags import get_compilation_flags
 from pkg.html.tag.regex.get_open import get_open as get_opened_tag
 
 
@@ -32,10 +33,7 @@ def all_from(tag=None, text="", ignore_case=True, get_only_content_inside=False)
     otherwise return all included the tag and its properties.
     :return: List with the matched tags.
     """
-    flags = re.RegexFlag.DOTALL
-
-    if ignore_case:
-        flags = re.RegexFlag.DOTALL | re.RegexFlag.IGNORECASE
+    flags = get_compilation_flags(ignore_case=ignore_case)
 
     regex_start_tag = re.compile(get_opened_tag(tag), flags)
     regex_end_tag = re.compile(get_closed_tag(tag), flags)
