@@ -28,13 +28,20 @@ class TestPkgHttpWebPageGet(TestCase):
         self.assertIsNone(result)
 
     @responses.activate
+    def test_the_response_calls(self):
+        """
+        The number of calls should be calls one time.
+        """
+        call_a_basic_response()
+
+        self.assertEqual(1, len(responses.calls))
+
+    @responses.activate
     def test_the_request_parameters(self):
         """
         Match the request parameters in the HTTP request.
         """
-        responses.add(method='GET', url='/')
-
-        get(url='http://www.fake_url.com')
+        call_a_basic_response()
 
         request = responses.calls[0].request
         self.assertEqual('GET', request.method)
@@ -63,16 +70,11 @@ class TestPkgHttpWebPageGet(TestCase):
         self.assertEqual(None, response.get('reason'))
         self.assertEqual(True, response.get('decode_content'))
 
-    @responses.activate
-    def test_the_response_calls(self):
-        """
-        The number of calls should be calls one time.
-        """
-        responses.add(
-            method='GET',
-            url='/'
-        )
 
-        get(url='http://www.fake_url.com')
+def call_a_basic_response():
+    """
+    Call a basic response and execute the get module for http web_page package.
+    """
+    responses.add(method='GET', url='/')
 
-        self.assertEqual(1, len(responses.calls))
+    get(url='http://www.fake_url.com')
