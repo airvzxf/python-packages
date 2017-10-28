@@ -29,8 +29,9 @@ class TestPkgHtmlTagGetOnlyOpen(TestCase):
         """
         tags = only_open(tag='article', text='''<div id="a">a.1</div> <article class='b'>b.1</article>''')
 
-        self.assertEqual(1, len(tags))
-        self.assertEqual(tags[0], "<article class='b'>")
+        expected_tad = ["<article class='b'>"]
+
+        self.assertEqual(expected_tad, tags)
 
     def test_extract_specific_tag_and_ignore_case(self):
         """
@@ -40,8 +41,9 @@ class TestPkgHtmlTagGetOnlyOpen(TestCase):
                          text='''<div id="a">a.1</div> <article class='b'>b.1</article>''',
                          ignore_case=True)
 
-        self.assertEqual(1, len(tags))
-        self.assertEqual(tags[0], "<article class='b'>")
+        expected_tad = ["<article class='b'>"]
+
+        self.assertEqual(expected_tad, tags)
 
     def test_extract_specific_tag_and_not_ignore_case(self):
         """
@@ -59,7 +61,6 @@ class TestPkgHtmlTagGetOnlyOpen(TestCase):
         """
         tags = only_open(text='''<div id="a">a.1</div> <article class='b'>b.1</article><span>-</span>''')
 
-        self.assertEqual(3, len(tags))
-        self.assertEqual(tags[0], '<div id="a">')
-        self.assertEqual(tags[1], "<article class='b'>")
-        self.assertEqual(tags[2], "<span>")
+        expected_tags = ['<div id="a">', "<article class='b'>", '<span>']
+
+        self.assertEqual(expected_tags, tags)
