@@ -8,6 +8,7 @@ Test case for get all properties inside of the HTML tag.
 from unittest import TestCase
 
 from pkg.html.tag.get.all_properties import all_properties
+from pkg.tester.asserts.compare_results import compare_results
 
 
 class TestPkgHtmlTagGetAllProperties(TestCase):
@@ -19,33 +20,35 @@ class TestPkgHtmlTagGetAllProperties(TestCase):
         """
         Returns an emtpy list if we don't send the tag.
         """
-        expected_property = all_properties()
+        properties = all_properties()
 
-        self.assertEqual([], expected_property)
+        compare_results(self, results=properties)
 
     def test_extract_all_properties_with_one_simple_tag(self):
         """
         Extract properties for a simple html tag.
         """
         properties = all_properties(tag='div', text='''<div id="a" class='b'>Hello</div>''')
+        first_tag = properties[0]
 
-        compare_the_properties_from_the_html(self, first_tag=properties[0])
+        compare_the_properties_from_the_html(self, first_tag=first_tag)
 
     def test_extract_all_properties_with_one_simple_tag_and_ignore_case(self):
         """
         Extract properties for a simple html tag.
         """
         properties = all_properties(tag='dIv', text='''<div id="a" class='b'>Hello</div>''', ignore_case=True)
+        first_tag = properties[0]
 
-        compare_the_properties_from_the_html(self, first_tag=properties[0])
+        compare_the_properties_from_the_html(self, first_tag=first_tag)
 
     def test_extract_all_properties_with_one_simple_tag_and_not_ignore_case(self):
         """
-        Extract properties for a simple html tag.
+        Return empty because the ignore case is false and the div tag have different case.
         """
         properties = all_properties(tag='dIv', text='''<div id="a" class='b'>Hello</div>''', ignore_case=False)
 
-        self.assertEqual([], properties)
+        compare_results(self, results=properties)
 
     def test_if_the_property_start_with_double_quotes_it_accept_single_quotes_and_inversely(self):
         """
@@ -54,11 +57,9 @@ class TestPkgHtmlTagGetAllProperties(TestCase):
         properties = all_properties(tag='div', text='''<div title="You're" data-type='She said "ok"'>Hello</div>''')
         first_tag = properties[0]
 
-        self.assertEqual(first_tag[0][0], 'title')
-        self.assertEqual(first_tag[0][1], "You're")
+        expected_results = [('title', "You're"), ('data-type', 'She said "ok"')]
 
-        self.assertEqual(first_tag[1][0], 'data-type')
-        self.assertEqual(first_tag[1][1], 'She said "ok"')
+        compare_results(self, total_results=2, expected_results=expected_results, results=first_tag)
 
     def test_if_the_properties_contains_the_greater_or_less_than_symbols(self):
         """
@@ -67,19 +68,18 @@ class TestPkgHtmlTagGetAllProperties(TestCase):
         properties = all_properties(tag='div', text='''<div title="a>b=c<d" data-type='a>b=c<d'>Hello</div>''')
         first_tag = properties[0]
 
-        self.assertEqual(first_tag[0][0], 'title')
-        self.assertEqual(first_tag[0][1], 'a>b=c<d')
+        expected_results = [('title', 'a>b=c<d'), ('data-type', 'a>b=c<d')]
 
-        self.assertEqual(first_tag[1][0], 'data-type')
-        self.assertEqual(first_tag[1][1], 'a>b=c<d')
+        compare_results(self, total_results=2, expected_results=expected_results, results=first_tag)
 
     def test_extract_all_properties_with_one_simple_tag_spaces_between(self):
         """
         Extract properties for a simple html tag.
         """
         properties = all_properties(tag='div', text='''<div  	 id=" a  " class = "b">Hello</div>''')
+        first_tag = properties[0]
 
-        compare_the_properties_from_the_html(self, first_tag=properties[0])
+        compare_the_properties_from_the_html(self, first_tag=first_tag)
 
     def test_extract_all_properties_with_one_simple_tag_but_not_trim_the_spaces(self):
         """
@@ -88,8 +88,9 @@ class TestPkgHtmlTagGetAllProperties(TestCase):
         properties = all_properties(tag='div', text='''<div class="    e     ">Hello</div>''', trim=False)
         first_tag = properties[0]
 
-        self.assertEqual(first_tag[0][0], 'class')
-        self.assertEqual(first_tag[0][1], '    e     ')
+        expected_results = [('class', '    e     ')]
+
+        compare_results(self, total_results=1, expected_results=expected_results, results=first_tag)
 
     def test_extract_all_properties_with_one_simple_tag_with_special_characters(self):
         """
@@ -106,8 +107,9 @@ class TestPkgHtmlTagGetAllProperties(TestCase):
         properties = all_properties(tag='div', text='''<div data-type="''' + expected_string + '''">Hello</div>''')
         first_tag = properties[0]
 
-        self.assertEqual(first_tag[0][0], 'data-type')
-        self.assertEqual(first_tag[0][1], expected_string)
+        expected_results = [('data-type', expected_string)]
+
+        compare_results(self, total_results=1, expected_results=expected_results, results=first_tag)
 
     def test_extract_all_properties_with_two_simple_tag(self):
         """
@@ -130,15 +132,13 @@ def compare_the_properties_from_the_html(self, first_tag=None, second_tag=None):
     :param second_tag: Get the properties form the second tag
     """
     if first_tag:
-        self.assertEqual(first_tag[0][0], 'id')
-        self.assertEqual(first_tag[0][1], 'a')
-
-        self.assertEqual(first_tag[1][0], 'class')
-        self.assertEqual(first_tag[1][1], 'b')
+        compare_results(self,
+                        total_results=2,
+                        expected_results=[('id', 'a'), ('class', 'b')],
+                        results=first_tag)
 
     if second_tag:
-        self.assertEqual(second_tag[0][0], 'id')
-        self.assertEqual(second_tag[0][1], '1')
-
-        self.assertEqual(second_tag[1][0], 'class')
-        self.assertEqual(second_tag[1][1], '2')
+        compare_results(self,
+                        total_results=2,
+                        expected_results=[('id', '1'), ('class', '2')],
+                        results=second_tag)
