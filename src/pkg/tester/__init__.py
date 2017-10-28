@@ -4,3 +4,5 @@
 """
 Module with easy methods to reauthorize your tests.
 """
+
+from . import asserts

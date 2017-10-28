@@ -4,3 +4,5 @@
 """
 Module to refactored and make easy the asserts.
 """
+
+from . import expected_results
