@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Module with easy methods to reauthorize your tests.
+Module with easy methods to refactoring your tests.
 """
 
 from . import asserts

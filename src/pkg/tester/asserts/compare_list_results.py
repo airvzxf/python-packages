@@ -2,13 +2,13 @@
 # -*- coding: UTF-8 -*-
 
 """
-Test case for search all tags from HTML code.
+Module which compare a list of results to assert the test.
 """
 
 
-def compare_results(self=None, total_results=0, expected_results=None, results=None):
+def compare_list_results(self=None, total_results=0, expected_results=None, results=None):
     """
-    Assert the expected results versus the results.
+    Assert the list of the expected results versus the results.
 
     :param self: Unit test object.
     :param total_results:  Number of result to needs to match.

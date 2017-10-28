@@ -5,4 +5,4 @@
 Module to refactored and make easy the asserts.
 """
 
-from . import compare_results
+from . import compare_list_results
