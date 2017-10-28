@@ -36,8 +36,6 @@ class TestPkgHttpWebPageGet(TestCase):
 
         get(url='http://www.fake_url.com')
 
-        self.assertEqual(1, len(responses.calls))
-
         request = responses.calls[0].request
         self.assertEqual('GET', request.method)
         self.assertEqual('http', request.scheme)
@@ -59,10 +57,22 @@ class TestPkgHttpWebPageGet(TestCase):
 
         response = get(url='http://www.fake_url.com')
 
-        self.assertEqual(1, len(responses.calls))
-
         self.assertEqual(299, response.get('status'))
         self.assertEqual('text/html', response.get('headers').getheaders('Content-Type')[0])
         self.assertEqual(b'this is the body', response.get('data'))
         self.assertEqual(None, response.get('reason'))
         self.assertEqual(True, response.get('decode_content'))
+
+    @responses.activate
+    def test_the_response_calls(self):
+        """
+        The number of calls should be calls one time.
+        """
+        responses.add(
+            method='GET',
+            url='/'
+        )
+
+        get(url='http://www.fake_url.com')
+
+        self.assertEqual(1, len(responses.calls))
