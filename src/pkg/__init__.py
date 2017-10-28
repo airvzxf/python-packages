@@ -8,4 +8,3 @@ Main package module.
 from . import debug
 from . import html
 from . import http
-from . import tester

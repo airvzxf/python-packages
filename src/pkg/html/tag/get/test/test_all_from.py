@@ -8,7 +8,6 @@ Test case for search all tags from HTML code.
 from unittest import TestCase
 
 from pkg.html.tag.get.all_from import all_from
-from pkg.tester.asserts.compare_list_results import compare_list_results
 
 
 class TestPkgHtmlTagAllFrom(TestCase):
@@ -22,7 +21,7 @@ class TestPkgHtmlTagAllFrom(TestCase):
         """
         results = all_from()
 
-        compare_list_results(self, results=results)
+        self.assertEqual([], results)
 
     def test_when_sent_html_code_ignore_case(self):
         """
@@ -32,7 +31,7 @@ class TestPkgHtmlTagAllFrom(TestCase):
 
         expected_results = ['<dIV name="test">This is a test</dIV>']
 
-        compare_list_results(self, total_results=1, expected_results=expected_results, results=results)
+        self.assertEqual(expected_results, results)
 
     def test_when_sent_html_code_without_ignore_case(self):
         """
@@ -40,7 +39,7 @@ class TestPkgHtmlTagAllFrom(TestCase):
         """
         results = all_from(tag='div', text='<dIV name="test">This is a test</dIV>', ignore_case=False)
 
-        compare_list_results(self, results=results)
+        self.assertEqual([], results)
 
     def test_when_text_has_break_lines_and_should_be_return_two_results(self):
         """
@@ -50,7 +49,7 @@ class TestPkgHtmlTagAllFrom(TestCase):
 
         results = all_from(tag='div', text=text, ignore_case=True)
 
-        compare_list_results(self, total_results=2, expected_results=expected_results, results=results)
+        self.assertEqual(expected_results, results)
 
     def test_when_text_has_break_lines_and_should_be_return_two_results_and_the_content_inside_of_the_tag(self):
         """
@@ -60,7 +59,7 @@ class TestPkgHtmlTagAllFrom(TestCase):
 
         results = all_from(tag='div', text=text, ignore_case=True, get_only_content_inside=True)
 
-        compare_list_results(self, total_results=2, expected_results=expected_results, results=results)
+        self.assertEqual(expected_results, results)
 
     def test_when_text_has_break_lines_and_should_be_return_three_results(self):
         """
@@ -70,7 +69,7 @@ class TestPkgHtmlTagAllFrom(TestCase):
 
         results = all_from(tag='article', text=text, ignore_case=True)
 
-        compare_list_results(self, total_results=3, expected_results=expected_results, results=results)
+        self.assertEqual(expected_results, results)
 
     def test_when_text_has_break_lines_and_should_be_return_three_results_and_the_content_inside_of_the_tag(self):
         """
@@ -80,7 +79,7 @@ class TestPkgHtmlTagAllFrom(TestCase):
 
         results = all_from(tag='article', text=text, ignore_case=True, get_only_content_inside=True)
 
-        compare_list_results(self, total_results=3, expected_results=expected_results, results=results)
+        self.assertEqual(expected_results, results)
 
 
 def get_two_matches():
