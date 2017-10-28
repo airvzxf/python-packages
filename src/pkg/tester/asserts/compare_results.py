@@ -6,7 +6,7 @@ Test case for search all tags from HTML code.
 """
 
 
-def compare_results(self, total_results=0, expected_results=None, results=None):
+def compare_results(self=None, total_results=0, expected_results=None, results=None):
     """
     Assert the expected results versus the results.
 
