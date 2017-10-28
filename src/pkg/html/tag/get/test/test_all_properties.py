@@ -28,18 +28,16 @@ class TestPkgHtmlTagGetAllProperties(TestCase):
         Extract properties for a simple html tag.
         """
         properties = all_properties(tag='div', text='''<div id="a" class='b'>Hello</div>''')
-        first_tag = properties[0]
 
-        compare_the_properties_from_the_html(self, first_tag=first_tag)
+        compare_the_properties_from_the_html(self, first_tag=properties[0])
 
     def test_extract_all_properties_with_one_simple_tag_and_ignore_case(self):
         """
         Extract properties for a simple html tag.
         """
         properties = all_properties(tag='dIv', text='''<div id="a" class='b'>Hello</div>''', ignore_case=True)
-        first_tag = properties[0]
 
-        compare_the_properties_from_the_html(self, first_tag=first_tag)
+        compare_the_properties_from_the_html(self, first_tag=properties[0])
 
     def test_extract_all_properties_with_one_simple_tag_and_not_ignore_case(self):
         """
@@ -76,9 +74,8 @@ class TestPkgHtmlTagGetAllProperties(TestCase):
         Extract properties for a simple html tag.
         """
         properties = all_properties(tag='div', text='''<div  	 id=" a  " class = "b">Hello</div>''')
-        first_tag = properties[0]
 
-        compare_the_properties_from_the_html(self, first_tag=first_tag)
+        compare_the_properties_from_the_html(self, first_tag=properties[0])
 
     def test_extract_all_properties_with_one_simple_tag_but_not_trim_the_spaces(self):
         """
@@ -115,10 +112,8 @@ class TestPkgHtmlTagGetAllProperties(TestCase):
         Extract properties for two html tag.
         """
         properties = all_properties(tag='div', text='''<div id="a" class='b'>H</div><div id='1' class="2">W</div>''')
-        first_tag = properties[0]
-        second_tag = properties[1]
 
-        compare_the_properties_from_the_html(self, first_tag=first_tag, second_tag=second_tag)
+        compare_the_properties_from_the_html(self, first_tag=properties[0], second_tag=properties[1])
 
 
 def compare_the_properties_from_the_html(self, first_tag=None, second_tag=None):
