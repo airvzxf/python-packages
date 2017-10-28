@@ -19,76 +19,86 @@ class TestPkgHtmlTagAllFrom(TestCase):
         """
         Returns an emtpy list if we don't send the tag.
         """
-        actual_text = all_from()
+        results = all_from()
 
-        self.assertEqual([], actual_text)
+        assert_array_results(self, results=results)
 
     def test_when_sent_html_code_ignore_case(self):
         """
         Returns the code inside of the tag <dIV...>...</dIV>.
         """
-        actual_text = all_from(tag='div', text='<dIV name="test">This is a test</dIV>')[0]
-        expected_text = '<dIV name="test">This is a test</dIV>'
+        results = all_from(tag='div', text='<dIV name="test">This is a test</dIV>')
 
-        self.assertEqual(actual_text, expected_text)
+        expected_results = ['<dIV name="test">This is a test</dIV>']
+
+        assert_array_results(self, total_results=1, expected_results=expected_results, results=results)
 
     def test_when_sent_html_code_without_ignore_case(self):
         """
         Returns None.
         """
-        actual_text = all_from(tag='div', text='<dIV name="test">This is a test</dIV>', ignore_case=False)
+        results = all_from(tag='div', text='<dIV name="test">This is a test</dIV>', ignore_case=False)
 
-        self.assertEqual(0, len(actual_text))
+        assert_array_results(self, results=results)
 
     def test_when_text_has_break_lines_and_should_be_return_two_results(self):
         """
         Returns two results.
         """
-        text, expected_text_1, expected_text_2 = get_two_matches()
+        text, expected_results = get_two_matches()
 
-        result = all_from(tag='div', text=text, ignore_case=True)
+        results = all_from(tag='div', text=text, ignore_case=True)
 
-        self.assertEqual(2, len(result))
-        self.assertEqual(result[0], expected_text_1)
-        self.assertEqual(result[1], expected_text_2)
+        assert_array_results(self, total_results=2, expected_results=expected_results, results=results)
 
     def test_when_text_has_break_lines_and_should_be_return_two_results_and_the_content_inside_of_the_tag(self):
         """
         Returns two results.
         """
-        text, expected_text_1, expected_text_2 = get_two_matches_and_the_content_inside_of_the_tag()
+        text, expected_results = get_two_matches_and_the_content_inside_of_the_tag()
 
-        result = all_from(tag='div', text=text, ignore_case=True, get_only_content_inside=True)
+        results = all_from(tag='div', text=text, ignore_case=True, get_only_content_inside=True)
 
-        self.assertEqual(2, len(result))
-        self.assertEqual(result[0], expected_text_1)
-        self.assertEqual(result[1], expected_text_2)
+        assert_array_results(self, total_results=2, expected_results=expected_results, results=results)
 
     def test_when_text_has_break_lines_and_should_be_return_three_results(self):
         """
         Return the three articles.
         """
-        text, expected_text_1, expected_text_2, expected_text_3 = get_three_matches()
+        text, expected_results = get_three_matches()
 
-        result = all_from(tag='article', text=text, ignore_case=True)
+        results = all_from(tag='article', text=text, ignore_case=True)
 
-        self.assertEqual(3, len(result))
-        self.assertEqual(result[0], expected_text_1)
-        self.assertEqual(result[1], expected_text_2)
-        self.assertEqual(result[2], expected_text_3)
+        assert_array_results(self, total_results=3, expected_results=expected_results, results=results)
 
     def test_when_text_has_break_lines_and_should_be_return_three_results_and_the_content_inside_of_the_tag(self):
         """
         Return the three articles.
         """
-        text, expected_text_1, expected_text_2, expected_text_3 = get_three_matches_and_the_content_inside_of_the_tag()
+        text, expected_results = get_three_matches_and_the_content_inside_of_the_tag()
 
-        result = all_from(tag='article', text=text, ignore_case=True, get_only_content_inside=True)
+        results = all_from(tag='article', text=text, ignore_case=True, get_only_content_inside=True)
 
-        self.assertEqual(3, len(result))
-        self.assertEqual(result[0], expected_text_1)
-        self.assertEqual(result[1], expected_text_2)
-        self.assertEqual(result[2], expected_text_3)
+        assert_array_results(self, total_results=3, expected_results=expected_results, results=results)
+
+
+def assert_array_results(self, total_results=0, expected_results=None, results=None):
+    """
+    Assert the expected results versus the results.
+
+    :param self: Unit test object.
+    :param total_results:  Number of result to needs to match.
+    :param expected_results: List with the expected results.
+    :param results: List with the results which needs compare.
+    """
+    if results is None:
+        results = []
+    if expected_results is None:
+        expected_results = []
+    self.assertEqual(total_results, len(results))
+
+    for index in range(total_results):
+        self.assertEqual(expected_results[index], results[index])
 
 
 def get_two_matches():
@@ -117,7 +127,7 @@ def get_two_matches():
                 <div class="line-green">Line #2</div>
             </div>"""
 
-    return text, expected_text_1, expected_text_2
+    return text, [expected_text_1, expected_text_2]
 
 
 def get_two_matches_and_the_content_inside_of_the_tag():
@@ -144,7 +154,7 @@ def get_two_matches_and_the_content_inside_of_the_tag():
                 <span>My footer<span>
                 <div class="line-green">Line #2</div>"""
 
-    return text, expected_text_1, expected_text_2
+    return text, [expected_text_1, expected_text_2]
 
 
 def get_three_matches():
@@ -181,7 +191,7 @@ def get_three_matches():
             <span>Article #3</span>
         </article>"""
 
-    return text, expected_text_1, expected_text_2, expected_text_3
+    return text, [expected_text_1, expected_text_2, expected_text_3]
 
 
 def get_three_matches_and_the_content_inside_of_the_tag():
@@ -215,4 +225,4 @@ def get_three_matches_and_the_content_inside_of_the_tag():
     expected_text_3 = """
             <span>Article #3</span>"""
 
-    return text, expected_text_1, expected_text_2, expected_text_3
+    return text, [expected_text_1, expected_text_2, expected_text_3]
