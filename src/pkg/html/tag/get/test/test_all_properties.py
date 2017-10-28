@@ -116,8 +116,10 @@ class TestPkgHtmlTagGetAllProperties(TestCase):
         Extract properties for two html tag.
         """
         properties = all_properties(tag='div', text='''<div id="a" class='b'>H</div><div id='1' class="2">W</div>''')
+        first_tag = properties[0]
+        second_tag = properties[1]
 
-        compare_the_properties_from_the_html(self, first_tag=properties[0], second_tag=properties[1])
+        compare_the_properties_from_the_html(self, first_tag=first_tag, second_tag=second_tag)
 
 
 def compare_the_properties_from_the_html(self, first_tag=None, second_tag=None):
