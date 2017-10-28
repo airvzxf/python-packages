@@ -70,5 +70,5 @@ class TestPkgTesterAssertsCompareResults(TestCase):
         try:
             compare_results(self, total_results=1, expected_results=['b'], results=['c'])
         except AssertionError as error:
-            expected_error = "'b' != 'c'\n- b\n+ c\n"
-            self.assertEqual(expected_error, str(error))
+            expected_error = "Lists differ: ['b'] != ['c']"
+            self.assertTrue(expected_error in str(error))

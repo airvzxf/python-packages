@@ -23,5 +23,4 @@ def compare_results(self=None, total_results=0, expected_results=None, results=N
 
     self.assertEqual(total_results, len(results))
 
-    for index in range(total_results):
-        self.assertEqual(expected_results[index], results[index])
+    self.assertEqual(expected_results, results)
