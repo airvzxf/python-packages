@@ -20,6 +20,7 @@ import re
 from pkg.html.tag.regex.get_close import get_close as get_closed_tag
 from pkg.html.tag.regex.get_compilation_flags import get_compilation_flags
 from pkg.html.tag.regex.get_open import get_open as get_opened_tag
+from pkg.regex.get.compiled_list import compiled_list
 
 
 def all_from(tag=None, text="", ignore_case=True, get_only_content_inside=False):
@@ -35,8 +36,10 @@ def all_from(tag=None, text="", ignore_case=True, get_only_content_inside=False)
     """
     flags = get_compilation_flags(ignore_case=ignore_case)
 
-    regex_start_tag = re.compile(get_opened_tag(tag), flags)
-    regex_end_tag = re.compile(get_closed_tag(tag), flags)
+    pattern_list = [get_opened_tag(tag),
+                    get_closed_tag(tag)]
+
+    regex_start_tag, regex_end_tag = compiled_list(pattern_list, flags)
 
     tag_matrix = {}
 

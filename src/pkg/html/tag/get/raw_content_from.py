@@ -9,6 +9,7 @@ import re
 
 from pkg.html.tag.regex.get_compilation_flags import get_compilation_flags
 from pkg.html.tag.regex.get_raw_open_close import get_raw_open_close as get_raw_opened_closed_tag
+from pkg.regex.get.compiled_list import compiled_list
 
 
 def raw_content_from(tag=None, text="", ignore_case=True):
@@ -22,7 +23,9 @@ def raw_content_from(tag=None, text="", ignore_case=True):
     """
     flags = get_compilation_flags(ignore_case=ignore_case)
 
-    pattern_get_from_tag = re.compile(get_raw_opened_closed_tag(tag), flags)
+    pattern_list = [get_raw_opened_closed_tag(tag)]
+
+    pattern_get_from_tag = compiled_list(pattern_list, flags)
 
     matches = re.search(pattern_get_from_tag, text)
 

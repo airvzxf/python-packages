@@ -10,6 +10,7 @@ import re
 from pkg.html.tag.regex.get_compilation_flags import get_compilation_flags
 from pkg.html.tag.regex.get_open import get_open as get_opened_tag
 from pkg.html.tag.regex.get_properties import get_properties
+from pkg.regex.get.compiled_list import compiled_list
 
 
 def all_properties(tag=None, text="", trim=True, ignore_case=True):
@@ -24,8 +25,10 @@ def all_properties(tag=None, text="", trim=True, ignore_case=True):
     """
     flags = get_compilation_flags(ignore_case=ignore_case)
 
-    regex_tag = re.compile(get_opened_tag(tag), flags)
-    regex_properties = re.compile(get_properties(trim), flags)
+    pattern_list = [get_opened_tag(tag),
+                    get_properties(trim)]
+
+    regex_tag, regex_properties = compiled_list(pattern_list, flags)
 
     tags = []
 
