@@ -26,11 +26,11 @@ class TestPkgHtmlTagRegexGetCompilationFlags(TestCase):
 
     def test_if_any_flag_is_true_return_none(self):
         """
-        Return dot all flag.
+        Return zero if any flag match with the filters.
         """
         expected_flag = get_compilation_flags(dot_all=False)
 
-        self.assertIsNone(expected_flag)
+        self.assertEqual(0, expected_flag)
 
     def test_flag_dot_all_and_ignore_case(self):
         """
