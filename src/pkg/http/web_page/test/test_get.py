@@ -19,7 +19,7 @@ class TestPkgHttpWebPageGet(TestCase):
     Test the get request from web page with the http protocol.
     """
 
-    def test_if_url_is_none_return_noe(self):
+    def test_if_url_is_none_return_none(self):
         """
         Return None if the parameter url is none.
         """
