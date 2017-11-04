@@ -30,7 +30,7 @@ class TestPkgDebugMethodShowAvailable(TestCase):
         _catch_any_exception_error(self, should_fail=True)
 
     def test_when_main_object_is_none_not_execute_the_statements(self):
-        """"
+        """
         Not print anything in the console.
         """
         temp_stdout = StringIO()
