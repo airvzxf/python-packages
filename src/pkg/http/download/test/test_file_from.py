@@ -19,15 +19,7 @@ class TestPkgHttpDownloadFileFrom(TestCase):
 
     def test_the_default_parameters(self):
         """
-        Return None if it send the default parameters.
-        """
-        downloaded = file_from()
-
-        self.assertIsNone(downloaded)
-
-    def test_if_url_is_none_return_none(self):
-        """
-        Return None if the parameter url is none.
+        Return None if it send the default parameters that include url equal to none.
         """
         downloaded = file_from()
 
