@@ -4,3 +4,5 @@
 """
 Module: Handle the directories in the Operative System.
 """
+
+from . import delete
