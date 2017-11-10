@@ -10,6 +10,14 @@ from urllib.request import HTTPError, urlretrieve
 
 
 def file_from(url=None, filename=None):
+    """
+    Download file from url via http.
+
+    :param url: URL normally started with http(s).
+    :param filename: Optional if you want move the temporal file to an specific directory with a specific name.
+    :return: True if it was downloaded or false if it wasn't downloaded or some known error occurred. None if
+    something was wrong.
+    """
     if url is None:
         return None
 

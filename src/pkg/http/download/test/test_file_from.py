@@ -30,7 +30,7 @@ class TestPkgHttpDownloadFileFrom(TestCase):
         """
         Returns false if not calls the urlretrieve packages which is imported from urllib.request.
         """
-        file_from(url=None)
+        file_from()
 
         self.assertEqual(False, mock_urlretrieve.called)
 
@@ -81,6 +81,8 @@ class TestPkgHttpDownloadFileFrom(TestCase):
         """
         If the url is correct it returns false and checks urlretrieve was called.
         """
+        mock_urlretrieve.return_value = None
+
         downloaded = file_from(url='')
 
         self.assertEqual(True, downloaded)
