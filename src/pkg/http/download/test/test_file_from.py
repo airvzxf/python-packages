@@ -32,7 +32,7 @@ class TestPkgHttpDownloadFileFrom(TestCase):
         """
         file_from()
 
-        self.assertEqual(False, mock_urlretrieve.called)
+        mock_urlretrieve.assert_not_called()
 
     @patch('pkg.http.download.file_from.urlretrieve')
     def test_if_urlretrieve_is_called(self, mock_urlretrieve):
@@ -41,7 +41,7 @@ class TestPkgHttpDownloadFileFrom(TestCase):
         """
         file_from(url='')
 
-        self.assertEqual(True, mock_urlretrieve.called)
+        mock_urlretrieve.assert_called()
 
     @patch('pkg.http.download.file_from.urlretrieve')
     def test_if_urlretrieve_calls_once(self, mock_urlretrieve):
@@ -50,7 +50,7 @@ class TestPkgHttpDownloadFileFrom(TestCase):
         """
         file_from(url='')
 
-        self.assertEqual(1, mock_urlretrieve.call_count)
+        mock_urlretrieve.assert_called_once()
 
     @patch('pkg.http.download.file_from.urlretrieve')
     def test_if_urlretrieve_send_only_the_url_parameter(self, mock_urlretrieve):
@@ -60,9 +60,8 @@ class TestPkgHttpDownloadFileFrom(TestCase):
         expected_url = 'http://anything.com/my_file.txt'
 
         file_from(url=expected_url)
-        url = mock_urlretrieve.call_args[1].get('url')
 
-        self.assertEqual(url, expected_url)
+        mock_urlretrieve.assert_called_once_with(filename=None, url=expected_url)
 
     @patch('pkg.http.download.file_from.urlretrieve')
     def test_if_urlretrieve_send_only_the_filename_parameter(self, mock_urlretrieve):
@@ -72,9 +71,8 @@ class TestPkgHttpDownloadFileFrom(TestCase):
         expected_filename = 'fake_file.txt'
 
         file_from(url='', filename=expected_filename)
-        filename = mock_urlretrieve.call_args[1].get('filename')
 
-        self.assertEqual(filename, expected_filename)
+        mock_urlretrieve.assert_called_once_with(filename=expected_filename, url='')
 
     @patch('pkg.http.download.file_from.urlretrieve')
     def test_if_the_url_is_correct_returns_true(self, mock_urlretrieve):
