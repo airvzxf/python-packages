@@ -4,12 +4,12 @@
 - Use type annotations for python 3.5.
 
     Used:
-    ```python
+    ```
   def file_from(url, filename):
       return None
     ```
     Needs:
-    ```python
+    ```
   def file_from(url: str = None, filename: str = None) -> bool:
       return False
     ```
