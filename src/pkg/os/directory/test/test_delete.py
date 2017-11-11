@@ -17,35 +17,6 @@ class TestPkgOsDirectoryDelete(TestCase):
     Test to delete a directory form the operative system.
     """
 
-    # noinspection PyUnusedLocal
-    @patch('pkg.os.directory.delete.isdir')
-    @patch('pkg.os.directory.delete.exists')
-    def patching_exists_isdir(*args: object) -> object:
-        """
-        This helper function create a decorator function with the required patches and
-        then apply to the tester classes.
-
-        :param args: Any parameter in this case: self, and patches for exists, isdir and rmtree.
-        :return: Return the object which means the self function with the parameters.
-        :rtype: object
-        """
-        return object
-
-    # noinspection PyUnusedLocal
-    @patch('pkg.os.directory.delete.rmtree')
-    @patch('pkg.os.directory.delete.isdir')
-    @patch('pkg.os.directory.delete.exists')
-    def patching_exists_isdir_rmtree(*args: object) -> object:
-        """
-        This helper function create a decorator function with the required patches and
-        then apply to the tester classes.
-
-        :param args: Any parameter in this case: self, and patches for exists, isdir and rmtree.
-        :return: Return the object which means the self function with the parameters.
-        :rtype: object
-        """
-        return object
-
     def test_the_default_parameters(self):
         """
         Return None if it send the default parameters that include directory to none.
@@ -68,7 +39,8 @@ class TestPkgOsDirectoryDelete(TestCase):
 
         mock_exists.assert_not_called()
 
-    @patching_exists_isdir
+    @patch('pkg.os.directory.delete.isdir')
+    @patch('pkg.os.directory.delete.exists')
     def test_if_the_path_does_not_exist_and_it_is_not_a_directory(self, mock_exists, mock_isdir):
         """
         Return false because the path doesn't exist and it isn't a directory.
@@ -82,7 +54,8 @@ class TestPkgOsDirectoryDelete(TestCase):
 
         self.assertEqual(False, deleted)
 
-    @patching_exists_isdir
+    @patch('pkg.os.directory.delete.isdir')
+    @patch('pkg.os.directory.delete.exists')
     def test_if_the_path_does_not_exist(self, mock_exists, mock_isdir):
         """
         Return false because the path doesn't exist and it isn't a directory.
@@ -96,7 +69,8 @@ class TestPkgOsDirectoryDelete(TestCase):
 
         self.assertEqual(False, deleted)
 
-    @patching_exists_isdir
+    @patch('pkg.os.directory.delete.isdir')
+    @patch('pkg.os.directory.delete.exists')
     def test_if_the_path_is_not_a_directory(self, mock_exists, mock_isdir):
         """
         Return false because the path doesn't exist and it isn't a directory.
@@ -110,7 +84,9 @@ class TestPkgOsDirectoryDelete(TestCase):
 
         self.assertEqual(False, deleted)
 
-    @patching_exists_isdir_rmtree
+    @patch('pkg.os.directory.delete.rmtree')
+    @patch('pkg.os.directory.delete.isdir')
+    @patch('pkg.os.directory.delete.exists')
     def test_if_the_path_does_exist_and_it_is_a_directory(self, mock_exists, mock_isdir, mock_rmtree):
         """
         Return true because the path does exist and it is a directory.
@@ -127,7 +103,9 @@ class TestPkgOsDirectoryDelete(TestCase):
 
         self.assertEqual(True, deleted)
 
-    @patching_exists_isdir_rmtree
+    @patch('pkg.os.directory.delete.rmtree')
+    @patch('pkg.os.directory.delete.isdir')
+    @patch('pkg.os.directory.delete.exists')
     def test_if_rmtree_is_called(self, mock_exists, mock_isdir, mock_rmtree):
         """
         Return true because the path does exist and it is a directory.
@@ -142,7 +120,7 @@ class TestPkgOsDirectoryDelete(TestCase):
         mock_rmtree.assert_called_once_with('')
 
 
-def _mock_delete_module(mocks: tuple = None, path: bool = True) -> bool:
+def _mock_delete_module(mocks: tuple, path: bool = True) -> bool:
     """
     Helper function which set the mock values.
 
@@ -152,9 +130,6 @@ def _mock_delete_module(mocks: tuple = None, path: bool = True) -> bool:
 
     :rtype: bool
     """
-    if mocks is None:
-        return False
-
     path_string = None
 
     if path:
