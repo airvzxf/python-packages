@@ -30,10 +30,10 @@ class TestPkgOsDirectoryDelete(TestCase):
         """
         Return false because the exits method wasn't called.
         """
-        _mock_delete_module(path=None,
+        _mock_delete_module(path=False,
                             mock_exists=(mock_exists, None))
 
-        self.assertEqual(False, mock_exists.called)
+        mock_exists.assert_not_called()
 
     @patch('pkg.os.directory.delete.isdir')
     @patch('pkg.os.directory.delete.exists')
@@ -71,7 +71,6 @@ class TestPkgOsDirectoryDelete(TestCase):
     @patch('pkg.os.directory.delete.rmtree')
     @patch('pkg.os.directory.delete.isdir')
     @patch('pkg.os.directory.delete.exists')
-
     def test_if_the_path_does_exist_and_it_is_a_directory(self, mock_exists, mock_isdir, mock_rmtree):
         """
         Return true because the path does exist and it is a directory.
@@ -86,7 +85,6 @@ class TestPkgOsDirectoryDelete(TestCase):
     @patch('pkg.os.directory.delete.rmtree')
     @patch('pkg.os.directory.delete.isdir')
     @patch('pkg.os.directory.delete.exists')
-
     def test_if_rmtree_is_called(self, mock_exists, mock_isdir, mock_rmtree):
         """
         Return true because the path does exist and it is a directory.
@@ -94,10 +92,10 @@ class TestPkgOsDirectoryDelete(TestCase):
         _mock_delete_module(mock_exists=(mock_exists, True),
                             mock_isdir=(mock_isdir, True))
 
-        self.assertEqual(True, mock_rmtree.called)
+        mock_rmtree.assert_called_once_with('')
 
 
-def _mock_delete_module(path='', mock_exists=None, mock_isdir=None, mock_rmtree=None):
+def _mock_delete_module(path=True, mock_exists=None, mock_isdir=None, mock_rmtree=None):
     """
     Helper function which set the mock values.
 
@@ -107,13 +105,19 @@ def _mock_delete_module(path='', mock_exists=None, mock_isdir=None, mock_rmtree=
     :return: True or false which is determined from the delete method.
     """
 
+    path_string = None
+
+    if path:
+        path_string = ''
+
     _mock_method(mock_exists)
     _mock_method(mock_isdir)
     _mock_method(mock_rmtree)
 
-    deleted = delete(path=path)
+    deleted = delete(path=path_string)
 
     return deleted
+
 
 def _mock_method(mock):
     """
