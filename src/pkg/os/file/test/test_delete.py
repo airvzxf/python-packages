@@ -17,35 +17,6 @@ class TestPkgOsFileDelete(TestCase):
     Test to delete a file form the operative system.
     """
 
-    # noinspection PyUnusedLocal
-    @patch('pkg.os.file.delete.isfile')
-    @patch('pkg.os.file.delete.exists')
-    def patching_exists_isfile(*args: object) -> object:
-        """
-        This helper function create a decorator function with the required patches and
-        then apply to the tester classes.
-
-        :param args: Any parameter in this case: self, and patches for exists, isfile and remove.
-        :return: Return the object which means the self function with the parameters.
-        :rtype: object
-        """
-        return object
-
-    # noinspection PyUnusedLocal
-    @patch('pkg.os.file.delete.remove')
-    @patch('pkg.os.file.delete.isfile')
-    @patch('pkg.os.file.delete.exists')
-    def patching_exists_isfile_remove(*args: object) -> object:
-        """
-        This helper function create a decorator function with the required patches and
-        then apply to the tester classes.
-
-        :param args: Any parameter in this case: self, and patches for exists, isfile and remove.
-        :return: Return the object which means the self function with the parameters.
-        :rtype: object
-        """
-        return object
-
     def test_the_default_parameters(self):
         """
         Return None if it send the default parameters that include file to none.
@@ -68,7 +39,8 @@ class TestPkgOsFileDelete(TestCase):
 
         mock_exists.assert_not_called()
 
-    @patching_exists_isfile
+    @patch('pkg.os.file.delete.isfile')
+    @patch('pkg.os.file.delete.exists')
     def test_if_the_path_does_not_exist_and_it_is_not_a_file(self, mock_exists, mock_isfile):
         """
         Return false because the path doesn't exist and it isn't a file.
@@ -82,7 +54,8 @@ class TestPkgOsFileDelete(TestCase):
 
         self.assertEqual(False, deleted)
 
-    @patching_exists_isfile
+    @patch('pkg.os.file.delete.isfile')
+    @patch('pkg.os.file.delete.exists')
     def test_if_the_path_does_not_exist(self, mock_exists, mock_isfile):
         """
         Return false because the path doesn't exist and it isn't a file.
@@ -96,7 +69,8 @@ class TestPkgOsFileDelete(TestCase):
 
         self.assertEqual(False, deleted)
 
-    @patching_exists_isfile
+    @patch('pkg.os.file.delete.isfile')
+    @patch('pkg.os.file.delete.exists')
     def test_if_the_path_is_not_a_file(self, mock_exists, mock_isfile):
         """
         Return false because the path doesn't exist and it isn't a file.
@@ -110,7 +84,9 @@ class TestPkgOsFileDelete(TestCase):
 
         self.assertEqual(False, deleted)
 
-    @patching_exists_isfile_remove
+    @patch('pkg.os.file.delete.remove')
+    @patch('pkg.os.file.delete.isfile')
+    @patch('pkg.os.file.delete.exists')
     def test_if_the_path_does_exist_and_it_is_a_file(self, mock_exists, mock_isfile, mock_remove):
         """
         Return true because the path does exist and it is a file.
@@ -127,7 +103,9 @@ class TestPkgOsFileDelete(TestCase):
 
         self.assertEqual(True, deleted)
 
-    @patching_exists_isfile_remove
+    @patch('pkg.os.file.delete.remove')
+    @patch('pkg.os.file.delete.isfile')
+    @patch('pkg.os.file.delete.exists')
     def test_if_remove_is_called(self, mock_exists, mock_isfile, mock_remove):
         """
         Return true because the path does exist and it is a file.
