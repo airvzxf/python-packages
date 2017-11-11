@@ -19,11 +19,11 @@ class TestPkgHttpDownloadFileFrom(TestCase):
 
     def test_the_default_parameters(self):
         """
-        Return None if it send the default parameters that include url equal to none.
+        Return false if it send the default parameters that include url equal to none.
         """
         downloaded = file_from()
 
-        self.assertIsNone(downloaded)
+        self.assertFalse(downloaded)
 
     @patch('pkg.http.download.file_from.urlretrieve')
     def test_if_urlretrieve_is_not_called(self, mock_urlretrieve):

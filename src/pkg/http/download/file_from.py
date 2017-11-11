@@ -9,7 +9,7 @@ Module: Download one file via HTTP.
 from urllib.request import HTTPError, urlretrieve
 
 
-def file_from(url=None, filename=None):
+def file_from(url: str = None, filename: str = None) -> bool:
     """
     Download file from url via http.
 
@@ -17,9 +17,10 @@ def file_from(url=None, filename=None):
     :param filename: Optional if you want move the temporal file to an specific directory with a specific name.
     :return: True if it was downloaded or false if it wasn't downloaded or some known error occurred. None if
     something was wrong.
+    :rtype: bool
     """
     if url is None:
-        return None
+        return False
 
     try:
         urlretrieve(url=url, filename=filename)
