@@ -59,8 +59,12 @@ class TestPkgOsDirectoryDelete(TestCase):
         """
         Return false because the exits method wasn't called.
         """
-        _mock_delete_module(path=False,
-                            mock_exists=(mock_exists, None))
+        _mock_delete_module(
+            path=False,
+            mocks=(
+                (mock_exists, None),
+            )
+        )
 
         mock_exists.assert_not_called()
 
@@ -69,8 +73,12 @@ class TestPkgOsDirectoryDelete(TestCase):
         """
         Return false because the path doesn't exist and it isn't a directory.
         """
-        deleted = _mock_delete_module(mock_exists=(mock_exists, False),
-                                      mock_isdir=(mock_isdir, False))
+        deleted = _mock_delete_module(
+            mocks=(
+                (mock_exists, False),
+                (mock_isdir, False)
+            )
+        )
 
         self.assertEqual(False, deleted)
 
@@ -79,8 +87,12 @@ class TestPkgOsDirectoryDelete(TestCase):
         """
         Return false because the path doesn't exist and it isn't a directory.
         """
-        deleted = _mock_delete_module(mock_exists=(mock_exists, False),
-                                      mock_isdir=(mock_isdir, True))
+        deleted = _mock_delete_module(
+            mocks=(
+                (mock_exists, False),
+                (mock_isdir, True)
+            )
+        )
 
         self.assertEqual(False, deleted)
 
@@ -89,8 +101,12 @@ class TestPkgOsDirectoryDelete(TestCase):
         """
         Return false because the path doesn't exist and it isn't a directory.
         """
-        deleted = _mock_delete_module(mock_exists=(mock_exists, True),
-                                      mock_isdir=(mock_isdir, False))
+        deleted = _mock_delete_module(
+            mocks=(
+                (mock_exists, True),
+                (mock_isdir, False)
+            )
+        )
 
         self.assertEqual(False, deleted)
 
@@ -100,9 +116,14 @@ class TestPkgOsDirectoryDelete(TestCase):
         Return true because the path does exist and it is a directory.
         """
         mock_rmtree.return_value = None
-        deleted = _mock_delete_module(mock_exists=(mock_exists, True),
-                                      mock_isdir=(mock_isdir, True),
-                                      mock_rmtree=(mock_rmtree, None))
+
+        deleted = _mock_delete_module(
+            mocks=(
+                (mock_exists, True),
+                (mock_isdir, True),
+                (mock_rmtree, None)
+            )
+        )
 
         self.assertEqual(True, deleted)
 
@@ -111,42 +132,48 @@ class TestPkgOsDirectoryDelete(TestCase):
         """
         Return true because the path does exist and it is a directory.
         """
-        _mock_delete_module(mock_exists=(mock_exists, True),
-                            mock_isdir=(mock_isdir, True))
+        _mock_delete_module(
+            mocks=(
+                (mock_exists, True),
+                (mock_isdir, True)
+            )
+        )
 
         mock_rmtree.assert_called_once_with('')
 
 
-def _mock_delete_module(path=True, mock_exists=None, mock_isdir=None, mock_rmtree=None):
+def _mock_delete_module(mocks: tuple = None, path: bool = True) -> bool:
     """
     Helper function which set the mock values.
 
-    :param mock_exists: Mock object for the exists method and its value.
-    :param mock_isdir: Mock object for the isdir method and its value.
-    :param mock_rmtree: Mock object for the rmtree method and its value.
+    :param mocks: List with the mock tuple (mock object and boolean value).
+    :param path: The path in the system for example '/home/user/personal/file.txt'
     :return: True or false which is determined from the delete method.
+
+    :rtype: bool
     """
+    if mocks is None:
+        return False
 
     path_string = None
 
     if path:
         path_string = ''
 
-    _mock_method(mock_exists)
-    _mock_method(mock_isdir)
-    _mock_method(mock_rmtree)
+    for mock_values in mocks:
+        _mock_method(mock_values=mock_values)
 
     deleted = delete(path=path_string)
 
     return deleted
 
 
-def _mock_method(mock):
+def _mock_method(mock_values: tuple = None):
     """
     Set a value to specific mock object.
 
-    :param mock: Tuple with the mock object and value (object, value).
+    :param mock_values: Tuple with the mock object and value (object, value).
     """
-    if mock is not None:
-        mock_object, mock_value = mock
+    if mock_values is not None:
+        mock_object, mock_value = mock_values
         mock_object.return_value = mock_value
