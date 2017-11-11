@@ -17,23 +17,10 @@ class TestPkgOsDirectoryDelete(TestCase):
     Test to delete a directory form the operative system.
     """
 
+    # noinspection PyUnusedLocal
     @patch('pkg.os.directory.delete.isdir')
     @patch('pkg.os.directory.delete.exists')
-    def patching_exists_isdir(*args) -> object:
-        """
-        This helper function create a decorator function with the required patches and
-        then apply to the tester classes.
-
-        :param args: Any parameter in this case: self, and patches for exists and isdir.
-        :return: Return the object which means the self function with the parameters.
-        :rtype: object
-        """
-        return object
-
-    @patch('pkg.os.directory.delete.rmtree')
-    @patch('pkg.os.directory.delete.isdir')
-    @patch('pkg.os.directory.delete.exists')
-    def patching_exists_isdir_rmtree(*args) -> object:
+    def patching_exists_isdir(*args: object) -> object:
         """
         This helper function create a decorator function with the required patches and
         then apply to the tester classes.
@@ -44,14 +31,20 @@ class TestPkgOsDirectoryDelete(TestCase):
         """
         return object
 
-    @patching_exists_isdir
-    def test_true_equal_false(self):
+    # noinspection PyUnusedLocal
+    @patch('pkg.os.directory.delete.rmtree')
+    @patch('pkg.os.directory.delete.isdir')
+    @patch('pkg.os.directory.delete.exists')
+    def patching_exists_isdir_rmtree(*args: object) -> object:
         """
-        DELETE THIS TEST!
+        This helper function create a decorator function with the required patches and
+        then apply to the tester classes.
 
-        :return: Something
+        :param args: Any parameter in this case: self, and patches for exists, isdir and rmtree.
+        :return: Return the object which means the self function with the parameters.
+        :rtype: object
         """
-        self.assertEqual(True, True)
+        return object
 
     def test_the_default_parameters(self):
         """
