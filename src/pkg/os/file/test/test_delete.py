@@ -19,7 +19,7 @@ class TestPkgOsFileDelete(TestCase):
 
     def test_the_default_parameters(self):
         """
-        Return None if it send the default parameters that include file to none.
+        Return false if it send the default parameters that include file to none.
         """
         deleted = delete()
 

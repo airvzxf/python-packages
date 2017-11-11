@@ -19,7 +19,7 @@ class TestPkgOsDirectoryDelete(TestCase):
 
     def test_the_default_parameters(self):
         """
-        Return None if it send the default parameters that include directory to none.
+        Return false if it send the default parameters that include directory to none.
         """
         deleted = delete()
 
