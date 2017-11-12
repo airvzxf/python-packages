@@ -120,7 +120,7 @@ class TestPkgOsFileDelete(TestCase):
         mock_remove.assert_called_once_with('')
 
 
-def _mock_delete_module(mocks: tuple = None, path: bool = True) -> bool:
+def _mock_delete_module(mocks: tuple, path: bool = True) -> bool:
     """
     Helper function which set the mock values.
 
@@ -130,9 +130,6 @@ def _mock_delete_module(mocks: tuple = None, path: bool = True) -> bool:
 
     :rtype: bool
     """
-    if mocks is None:
-        return False
-
     path_string = None
 
     if path:
